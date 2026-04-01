@@ -196,6 +196,7 @@ Use these combinations for accessible text. All meet WCAG AA (4.5:1 for normal t
 ### Heading: Space Grotesk
 
 - **Weight**: Regular (400) — not Bold. The font carries enough character at regular weight.
+- **Availability**: Freely available on [Google Fonts](https://fonts.google.com/specimen/Space+Grotesk). Always load it for any HTML/web output.
 - **Tracking**: Scales proportionally with size. The larger the text, the tighter it can be pulled. At body-sized headings the tracking should be normal. Never use tight tracking on small text.
 - **Line height**: 1.0 for display headings (single-line), 1.1-1.2 for multi-line.
 - **Fallback**: `'Space Grotesk', 'Inter', system-ui, sans-serif`
@@ -207,7 +208,7 @@ Use these combinations for accessible text. All meet WCAG AA (4.5:1 for normal t
 - **Tracking**: Slightly negative at larger sizes (20px+), normal at standard body sizes.
 - **Fallback**: `'SF Pro Text', 'SF Pro', 'Inter', system-ui, sans-serif`
 
-SF Pro is an Apple system font. On non-Apple systems, Inter is the cross-platform fallback. For web artifacts, load Inter from Google Fonts.
+SF Pro is an Apple system font. For PDF/PNG export via Puppeteer on macOS, it renders fine. For browser-viewed HTML, Inter is the cross-platform fallback. See "HTML Artifacts" for the full font strategy by output context.
 
 ### Data Display: SF Compact Rounded
 
@@ -272,6 +273,11 @@ Stories and banners are special — they're either very tall or very wide, so ty
 **Always use Pika icons. Never substitute with Lucide, Heroicons, Font Awesome, or any other library.**
 
 Pika icons are bundled in `assets/icons/` as SVGs. Designed on a 24px grid with 2px stroke weight. Default to the **stroke** style.
+
+**Stroke-width by tier**: The default `stroke-width="2"` looks chunky at smaller render sizes. Adjust per tier:
+- **Tier 1** (48px icons): `stroke-width="2"` (default)
+- **Tier 2** (20-24px icons): `stroke-width="1.5"`
+- **Tier 3+** (16px or smaller): `stroke-width="1.25"`
 
 Available styles: `stroke` (default), `solid`, `duo-stroke`, `duo-solid`, `contrast`
 
@@ -379,6 +385,7 @@ A horizontal row of Pika icons, evenly spaced, each with a short label centered 
 |----------|--------|--------|--------|
 | Icon count | 4-6 across | 3-5 across | 3-4 across |
 | Icon size | 48px | 24px | 32px |
+| Icon stroke-width | `2` (default) | `1.5` (lighter at small sizes) | `2` |
 | Icon color | `#111111` (clean) or `#ffffff` (immersive) | Same | Same |
 | Label font | SF Pro Medium, 13px | SF Pro Medium, 9px | SF Pro Medium, 12px |
 | Icon-to-label gap | 12px | 8px | 10px |
@@ -567,12 +574,14 @@ When a metric needs to stand alone outside a chart:
 
 Gumbo's signature photo treatment: retro computer halftone print texture with CRT scanlines, rasterized scan lines, subtle holographic grid. It bridges analog craft with digital futures.
 
-Pre-treated brand images are bundled in `assets/images/halftone/`:
-- `warm-countryside-teal.png` — pastoral landscape, teal/green. CTAs, closing slides.
-- `sunrise-farmland-cyan.png` — farmland, halftone dots + sunburst rays. Section openers.
-- `team-working-dark-blue.png` — people at computers, dark moody blue. Dramatic intros.
-- `team-collab-bright-blue.png` — team collaboration, bright blue halftone. Hero slides.
-- `digital-landscape-aerial-teal.png` — aerial digital farmland, glowing elements. Vision slides.
+Brand photography lives in `assets/photography/`:
+- `hero-landscape-halftone.jpg` — pastoral landscape, teal sky, wide open plains. CTAs, closing slides.
+- `sunburst-farmland-halftone.jpg` — farmland with halftone dots + sunburst rays. Section openers.
+- `team-working-dark-halftone.jpg` — people at computers, dark moody blue. Dramatic intros.
+- `team-computers-blue-halftone.jpg` — team collaboration, bright blue halftone. Hero slides.
+- `digital-terrain-data-landscape.jpg` — aerial digital farmland, glowing cyan data points. Vision slides.
+
+These images are pre-treated and ready to use. **Always use these bundled images first.** They cover the most common needs (hero bands, section openers, immersive backgrounds, closing slides). Read the file directly from `assets/photography/` and embed it. Only generate new images if none of the five work for the specific context.
 
 ### Generating Brand Images
 
@@ -594,14 +603,47 @@ When using an image generation tool, adapt the prompt to the aspect ratio and co
 - **~2:1** (LinkedIn, OG): `panoramic horizontal composition, expansive landscape`
 - **3:1** (Twitter header): `ultra-wide banner composition, thin horizontal strip`
 
-### Image Fallbacks
+### Image Priority Order
 
-When halftone images aren't available or can't be generated:
-1. **User-supplied images** — ask the user if they have brand-treated images.
-2. **Solid color fallback** — `#2563eb` full-bleed, or gradient from `#1e40af` to `#2563eb`.
-3. **Placeholder** — `#f3f3f3` rectangle with "[Brand photo — halftone treatment]" for the user to replace.
+1. **Bundled brand images** — use the five images in `assets/photography/`. These are the default. Pick the one that best fits the context.
+2. **User-supplied images** — if the user provides additional brand-treated images, use those.
+3. **Generate with NanoBanana** — only if none of the bundled images fit and the context demands something specific. Use the prompt structure above.
+4. **Solid color fallback** — `#2563eb` full-bleed, or gradient from `#1e40af` to `#2563eb`.
+5. **Placeholder** — `#f3f3f3` rectangle with "[Brand photo — halftone treatment]" for the user to replace.
 
 Never use untreated photography in an immersive context.
+
+### CSS-Only Halftone Fallback
+
+When halftone images are unavailable (no bundled image fits, no generation tool available), use this CSS combination as an acceptable alternative for hero bands and immersive sections:
+
+```css
+.halftone-fallback {
+  position: relative;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 70%, #1d4ed8 100%);
+}
+/* Halftone dots */
+.halftone-fallback::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 1.5px, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+/* CRT scanlines */
+.halftone-fallback::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.04) 2px,
+    rgba(0,0,0,0.04) 3px
+  );
+}
+```
 
 ## Voice & Tone (Light Guidance)
 
@@ -711,6 +753,8 @@ Read the `docx` or `pdf` SKILL.md alongside this one. Use **Tier 2** type scale.
 - Gumbo logo from `assets/logo/` on first page or header
 - Pika icons inline where appropriate
 
+**Fixed-height HTML documents:** Use `display: flex; flex-direction: column` on the `.page` container with `flex: 1` on the content area and `flex-shrink: 0` on the footer. Never use `position: absolute` on the footer. See the HTML Artifacts section for full details.
+
 ### Proposals & SOWs
 
 Use **Tier 2** type scale on Letter. These are multi-page documents with a specific structure:
@@ -743,10 +787,33 @@ Use **Tier 2** or **Tier 3** type scale depending on canvas.
 ### HTML Artifacts
 
 Use **Tier 1** type scale (web desktop).
-- Load Inter + Space Grotesk from Google Fonts
 - Use CSS custom properties for all brand tokens
 - Split-header as default page structure
 - Pika icons inlined as SVGs
+
+**Fixed-height page layout**: For fixed-height HTML pages (Letter 816x1056, A4 595x842, Slide 1920x1080), use `display: flex; flex-direction: column` on the `.page` container. The main content area should use `flex: 1` to fill available space between the hero band and footer. The footer should be a flex child with `flex-shrink: 0`, not `position: absolute`. Absolute-positioned footers create dead space between the last content block and the footer.
+
+**Font strategy depends on the output context:**
+
+**For HTML exported to PDF/PNG via `html-export.mjs`** (documents, decks, social):
+SF Pro, SF Compact Rounded, and Space Grotesk are the primary fonts. Puppeteer's bundled Chromium renders system fonts, so SF Pro renders correctly on macOS. Load only Space Grotesk from Google Fonts. The CSS font stack stays as-is:
+```css
+--font-heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+--font-body: 'SF Pro Text', 'SF Pro', 'Inter', system-ui, sans-serif;
+--font-stat: 'SF Compact Rounded', 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
+```
+
+**For HTML viewed in browsers** (web artifacts, prototypes, landing pages shared as URLs):
+SF Pro and SF Compact Rounded won't render for non-Apple users. Load Inter from Google Fonts as the cross-platform fallback. Reorder the font stack so Inter comes first:
+```css
+--font-body: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+--font-stat: 'Inter', 'SF Compact Rounded', system-ui, sans-serif;
+```
+
+**Google Fonts import** (always include, covers Space Grotesk universally and Inter for web):
+```html
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+```
 
 ### Social Posts
 
@@ -761,6 +828,87 @@ Use **Tier 3** for square formats, **Tier 4** for stories/banners, **Tier 2** fo
 Follow HTML artifact principles with **Tier 1** type scale.
 - Tailwind utilities mapped to brand tokens
 - Component patterns: card grids, icon+separator+text bullets, stat badges
+
+## HTML Export Pipeline
+
+The Gumbo workflow is: **build as HTML first, then export to PDF or PNG**. HTML is the source of truth for all deliverables. The export script at `scripts/html-export.mjs` handles conversion.
+
+This pipeline is agent-agnostic. Any AI agent, CI pipeline, or human developer can run the script. No proprietary skills, platform-specific tools, or Claude-specific features are assumed.
+
+### Requirements
+
+Puppeteer is the only dependency. It works without global install via `npx`:
+
+```bash
+npm install puppeteer   # or: npx puppeteer browsers install chrome
+```
+
+### Usage
+
+```bash
+node scripts/html-export.mjs <input.html> <output> [options]
+```
+
+Options:
+- `--size <preset>` — named preset (default: `letter`)
+- `--format pdf|png` — force output format
+- `--width <px>` — custom width (overrides preset)
+- `--height <px>` — custom height (overrides preset)
+
+### Format Selection Logic
+
+If it's a file you share, present, or print, it's a **PDF**. If it's an image you upload to a platform, it's a **PNG**.
+
+### Presets
+
+**PDF output (shared, presented, printed):**
+
+| Preset | Width | Height | Use |
+|--------|-------|--------|-----|
+| `letter` (default) | 816px | 1056px | One-pagers, proposals, SOWs |
+| `a4` | 595px | 842px | International documents |
+| `slide` | 1920px | 1080px | Pitch decks, presentations |
+
+**PNG output (uploaded to platforms as images):**
+
+| Preset | Width | Height | Use |
+|--------|-------|--------|-----|
+| `twitter` | 1200px | 675px | Twitter/X post images |
+| `twitter-header` | 1500px | 500px | Twitter/X banner |
+| `linkedin` | 1200px | 627px | LinkedIn feed images |
+| `og` | 1200px | 630px | Link preview cards |
+| `ig-square` | 1080px | 1080px | Instagram feed posts |
+| `ig-story` | 1080px | 1920px | Instagram stories/reels |
+| `mobile` | 390px | 844px | Mobile web screenshots |
+
+### Custom Dimensions
+
+```bash
+node scripts/html-export.mjs custom.html out.pdf --width 800 --height 1200 --format pdf
+node scripts/html-export.mjs custom.html out.png --width 800 --height 600
+```
+
+Custom dimensions default to PNG unless `--format pdf` is specified. Custom dimensions override any named preset.
+
+### Multi-Page / Multi-Slide Handling
+
+- **PDF presets** (letter, a4, slide): if the HTML contains multiple `.page` divs, each becomes one PDF page in a single file.
+- **PNG presets**: multiple `.page` divs produce numbered files: `output-01.png`, `output-02.png`, etc.
+
+### Critical: `printBackground: true`
+
+The script always enables `printBackground`. Without it, hero bands, dark footers, content stages, and all CSS background colors render as white in the PDF. This is non-negotiable.
+
+### Examples
+
+```bash
+node scripts/html-export.mjs one-pager.html proposal.pdf
+node scripts/html-export.mjs one-pager.html proposal.pdf --size a4
+node scripts/html-export.mjs deck.html deck.pdf --size slide
+node scripts/html-export.mjs post.html card.png --size linkedin
+node scripts/html-export.mjs story.html story.png --size ig-story
+node scripts/html-export.mjs custom.html out.png --width 1440 --height 900
+```
 
 ## CSS Custom Properties Template
 
@@ -841,7 +989,11 @@ Follow HTML artifact principles with **Tier 1** type scale.
   --gumbo-black-10: #fafafa;
   --gumbo-white: #ffffff;
 
-  /* Typography */
+  /* Typography
+     Two contexts:
+     - PDF/PNG export (html-export.mjs): SF Pro renders via Puppeteer on macOS. Use stacks as-is.
+     - Browser viewing: SF Pro won't render for non-Apple users. Swap Inter to first position
+       for --font-body and --font-stat. See "HTML Artifacts" section for details. */
   --font-heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --font-body: 'SF Pro Text', 'SF Pro', 'Inter', system-ui, sans-serif;
   --font-stat: 'SF Compact Rounded', 'SF Pro Rounded', 'Inter', system-ui, sans-serif;
@@ -917,3 +1069,5 @@ Logo files in `assets/logo/`:
 - `pot-icon.svg` — gumbo pot icon (pixel-style)
 
 The wordmark is the default. Icon/pot for favicons, small marks, or playful contexts. Never distort, recolor, or add effects.
+
+**Always inline the actual SVG from `assets/logo/`.** Never approximate the wordmark with styled text. The Gumbo wordmark is a custom pixel-style design that cannot be reproduced with any font. Read the SVG file and embed the markup directly.
