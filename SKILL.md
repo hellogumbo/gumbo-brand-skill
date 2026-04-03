@@ -744,6 +744,48 @@ Not every deck needs all 12. The minimum viable deck is: Opener → Intro → Di
 - The CTA slide should feel like a natural conclusion, not an afterthought. The body copy on this slide should reference what was covered in the deck.
 - Every slide should be readable in 10 seconds or less. If there's too much text, split it into two slides.
 
+#### Slide Template Library
+
+Slide templates live in `templates/slides/`. Each template is a `.md` file containing a ready-to-use HTML skeleton extracted from the Figma reference deck, with usage notes.
+
+**How to use templates:**
+
+1. Read `templates/INDEX.md` first. It has a table of all templates with ID, name, mode (clean/immersive), and content-type tags.
+2. Match the user's content purpose to the `Content Types` column. If the user names a specific slide type, use that template directly.
+3. Read the matching template file. Copy the HTML skeleton from the `## HTML Skeleton` section.
+4. Replace placeholder text (heading, body, section label) with the user's actual content.
+5. Fill image placeholders (marked with `<!-- IMAGE: ... -->`) with brand photography from `assets/photography/` or user-supplied images.
+6. Inline the correct wordmark SVG from `assets/logo/`: white on dark/immersive backgrounds, black on light/clean backgrounds.
+7. If no template matches, fall back to `02` (Split-Header + Content Stage).
+
+**Template file structure:**
+
+Each template `.md` file has:
+- **Frontmatter**: `id`, `name`, `mode`, `content-types`, `figma-source`
+- **HTML Skeleton**: a complete `<div class="page">` block with inline styles using CSS custom properties. Copy this directly into your slide HTML.
+- **Usage Notes**: when to use this type, what content fits, sizing guidance, and gotchas.
+
+**Building a multi-slide deck:**
+
+Assemble slides by stacking multiple `.page` divs inside a single HTML file. Include the CSS Custom Properties block (from this document) once in a `<style>` tag. Each `.page` div is one slide. Export with:
+
+```bash
+node scripts/html-export.mjs deck.html deck.pdf --size slide
+```
+
+**Minimum viable deck**: Opener (01), Intro (02 or 03), Services (05), Case Study (06), CTA (07).
+
+#### Adding New Slide Templates
+
+When extracting a new slide layout from Figma:
+
+1. Call `get_design_context` with the frame's `fileKey` and `nodeId` from the Figma MCP.
+2. Translate the returned layout code to inline-styled HTML using CSS custom properties for colors, fonts, radii, and spacing tokens.
+3. Replace raw hex values with the matching `var(--gumbo-*)` token. Prefer Figma's measured spacing over SKILL.md approximations.
+4. Create a new `.md` file in `templates/slides/` following the frontmatter + skeleton + usage notes format.
+5. Add a row to `templates/INDEX.md`.
+6. Assign content-type tags that describe the slide's purpose, not its visual structure.
+
 ### Documents (DOCX / PDF)
 
 Read the `docx` or `pdf` SKILL.md alongside this one. Use **Tier 2** type scale.
