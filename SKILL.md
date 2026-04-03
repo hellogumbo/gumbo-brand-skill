@@ -941,6 +941,24 @@ Custom dimensions default to PNG unless `--format pdf` is specified. Custom dime
 
 The script always enables `printBackground`. Without it, hero bands, dark footers, content stages, and all CSS background colors render as white in the PDF. This is non-negotiable.
 
+### Body Styles and Export Context
+
+Puppeteer renders the full page, including `body` styles. Preview-only styles like `background: #e0e0e0` or `padding` on `body` will appear in the exported PDF/PNG. Wrap preview-only styles in `@media screen {}` so the export context stays clean:
+
+```css
+body { margin: 0; padding: 0; }
+@media screen {
+  body { background: #e0e0e0; padding: 40px 0; }
+  .page { margin: 0 auto 40px auto; }
+}
+@media print {
+  body { background: white; }
+  .page { margin: 0; }
+}
+```
+
+Puppeteer uses print media for PDF and screen media for PNG. Keep `body` background white and padding zero by default. Only add visual chrome (grey background, spacing between pages) inside `@media screen`.
+
 ### Examples
 
 ```bash
@@ -951,6 +969,49 @@ node scripts/html-export.mjs post.html card.png --size linkedin
 node scripts/html-export.mjs story.html story.png --size ig-story
 node scripts/html-export.mjs custom.html out.png --width 1440 --height 900
 ```
+
+## Visual Review (Mandatory)
+
+After building or modifying any HTML artifact, visually inspect the output before delivering the final export. This catches layout issues, color problems, and rendering bugs that are invisible in the HTML source.
+
+### Workflow
+
+1. **Build or update** the HTML artifact.
+2. **Export a review PNG:**
+   ```bash
+   node scripts/html-export.mjs <input.html> /tmp/review.png --format png --width <target-width> --height <target-height>
+   ```
+   For multi-page/multi-slide files, this produces numbered PNGs (`review-01.png`, `review-02.png`, etc.).
+3. **Read the PNG** with the Read tool to visually inspect each page/slide.
+4. **Check for:**
+   - **Clipping/overflow**: text or elements cut off at page edges
+   - **Background bleed**: body background color leaking into the export (see "Body Styles and Export Context" above)
+   - **SVG sizing**: wordmarks, icons, or logos rendering at wrong size or missing entirely
+   - **Footer visibility**: footer pushed off-page or overlapping content
+   - **Spacing rhythm**: consistent gaps between sections, no collapsed margins
+   - **Type hierarchy**: headings visually distinct from body text, correct font weights rendering
+   - **Image placeholders**: any `REPLACE_WITH_*` text still visible
+5. **Fix issues** found in the HTML source.
+6. **Repeat steps 2-5** until the review is clean.
+7. **Export the final deliverable:**
+   ```bash
+   node scripts/html-export.mjs <input.html> <output.pdf> --size <preset>
+   ```
+
+### Review Presets
+
+Match the review PNG dimensions to the final output:
+
+| Final Output | Review Command |
+|-------------|----------------|
+| Letter PDF | `--format png --width 816 --height 1056` |
+| A4 PDF | `--format png --width 595 --height 842` |
+| Slide PDF | `--format png --width 1920 --height 1080` |
+| Social PNG | Use the same `--size` preset as final |
+
+### When to Skip
+
+The visual review step can be skipped only when making a text-only change (replacing placeholder copy with final copy) where no layout, styling, or structural HTML was modified.
 
 ## CSS Custom Properties Template
 
