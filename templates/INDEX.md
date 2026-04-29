@@ -40,3 +40,11 @@ The agent decides which to use based on the slide's background color or image.
 ## Minimum Viable Deck
 
 5 slides: 01 (Opener), 02 or 03 (Intro), 05 (Services), 06 (Case Study), 07 (CTA).
+
+# Video Templates
+
+Read the template file for the video type you need. Each file contains a production brief and Remotion scene plan.
+
+| ID | File | Name | Mode | Content Types |
+|----|------|------|------|---------------|
+| V01 | [01-remotion-cd-rom-launch.md](videos/01-remotion-cd-rom-launch.md) | Remotion CD-ROM Product Launch | immersive | product-video, launch, cd-rom, software-box, multiplayer-os |

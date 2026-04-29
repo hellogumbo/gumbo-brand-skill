@@ -1,6 +1,6 @@
 # Gumbo Brand Skill
 
-A reusable [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code/skills) that applies Gumbo's brand identity to any AI-generated output — presentations, documents, HTML artifacts, social posts, and React prototypes.
+A reusable [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code/skills) that applies Gumbo's brand identity to any AI-generated output — presentations, documents, HTML artifacts, social posts, videos, and React prototypes.
 
 ## What's in here
 
@@ -9,8 +9,13 @@ SKILL.md              # The brand system (the skill itself)
 assets/
   icons/              # 6,120 Pika icon SVGs (stroke, solid, duo-stroke, duo-solid, contrast)
   logo/               # Wordmarks + icon marks
+  product-mockups/    # Generated Gumbo product mockups for video/social compositions
   images/halftone/    # Pre-treated brand photography
+templates/
+  videos/             # Remotion/product-video briefs
 references/           # Design tokens and reference files
+examples/
+  remotion/           # Runnable Remotion examples for branded videos
 ```
 
 ## Installation
@@ -38,4 +43,14 @@ Once installed, the skill triggers automatically when Claude detects Gumbo-relat
 - Data table, chart, and graph styling
 - Photography treatment and image generation prompts
 - Voice and tone guidance
-- Output-specific rules for PPTX, DOCX, PDF, HTML, social, email, and React
+- Output-specific rules for PPTX, DOCX, PDF, HTML, social, video, email, and React
+
+## Video Example
+
+The Multiplayer OS CD-ROM promo is a runnable Remotion example:
+
+```bash
+cd examples/remotion/multiplayer-os-cd-rom
+npm install
+npm run render
+```
