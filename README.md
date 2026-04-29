@@ -14,6 +14,8 @@ assets/
 templates/
   videos/             # Remotion/product-video briefs
 references/           # Design tokens and reference files
+examples/
+  remotion/           # Runnable Remotion examples for branded videos
 ```
 
 ## Installation
@@ -42,3 +44,13 @@ Once installed, the skill triggers automatically when Claude detects Gumbo-relat
 - Photography treatment and image generation prompts
 - Voice and tone guidance
 - Output-specific rules for PPTX, DOCX, PDF, HTML, social, video, email, and React
+
+## Video Example
+
+The Multiplayer OS CD-ROM promo is a runnable Remotion example:
+
+```bash
+cd examples/remotion/multiplayer-os-cd-rom
+npm install
+npm run render
+```

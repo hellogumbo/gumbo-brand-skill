@@ -1,0 +1,26 @@
+{
+  "name": "@gumbo/multiplayer-os-cd-rom-video",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run audio && remotion studio src/index.tsx",
+    "studio": "npm run audio && remotion studio src/index.tsx",
+    "render": "npm run audio && remotion render src/index.tsx multiplayer-os-video out/multiplayer-os-cd-rom.mp4",
+    "audio": "node scripts/generate-audio.mjs",
+    "lint": "tsc --noEmit",
+    "test": "vitest --run"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.454",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "remotion": "^4.0.454"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}

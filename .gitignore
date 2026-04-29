@@ -5,3 +5,5 @@ Thumbs.db
 *~
 .env
 node_modules/
+examples/remotion/*/out/
+examples/remotion/*/public/audio/*.wav
