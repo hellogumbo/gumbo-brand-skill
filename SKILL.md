@@ -1,6 +1,6 @@
 ---
 name: gumbo-brand
-description: Apply Gumbo's brand identity to any output — presentations, documents, HTML artifacts, and React prototypes. Use whenever the user mentions "Gumbo", "gumbo brand", "on-brand", or wants outputs styled for Gumbo. Also trigger when creating any deliverable (deck, doc, artifact, report, social post) for Gumbo or its clients, even if the user doesn't explicitly say "brand." If this skill is available, assume all Gumbo-related outputs should use it. Always use Pika icons — never substitute with other icon libraries.
+description: Apply Gumbo's brand identity to any output — presentations, documents, HTML artifacts, videos, and React prototypes. Use whenever the user mentions "Gumbo", "gumbo brand", "on-brand", or wants outputs styled for Gumbo. Also trigger when creating any deliverable (deck, doc, video, artifact, report, social post) for Gumbo or its clients, even if the user doesn't explicitly say "brand." If this skill is available, assume all Gumbo-related outputs should use it. Always use Pika icons — never substitute with other icon libraries.
 ---
 
 # Gumbo Brand System
@@ -69,6 +69,14 @@ Always start from the right canvas size. Using the wrong artboard leads to wrong
 | Instagram square | 1080 × 1080 | 1:1 | Feed posts |
 | Instagram story | 1080 × 1920 | 9:16 | Stories, reels |
 | OG / link preview | 1200 × 630 | ~1.91:1 | Link sharing cards |
+
+### Video
+
+| Name | Size (px) | Aspect | Use |
+|------|-----------|--------|-----|
+| Remotion product promo | 1080 × 700 | ~1.54:1 | Short product launch videos, old-school software mockups |
+| Social landscape video | 1200 × 675 | 16:9 | X/LinkedIn video posts |
+| Social square video | 1080 × 1080 | 1:1 | Square feed videos |
 
 ## Colors
 
@@ -864,6 +872,16 @@ Use **Tier 3** for square formats, **Tier 4** for stories/banners, **Tier 2** fo
 - Halftone brand image or clean white background
 - Gumbo wordmark in a corner, small
 - Stats and metrics are great social content — use SF Compact Rounded to make them pop
+
+### Remotion Videos
+
+Use **Tier 2** type scale for 1080×700 product promos and **Tier 3/4** for social formats.
+- Use official Gumbo logo assets from `assets/logo/`; inline SVGs in Remotion components when possible.
+- For old-school software looks, use `assets/product-mockups/` for CD-ROM or boxed-software hero art.
+- Keep motion purposeful: spring fade + scale transitions, UI panels sliding in, disc rotation, terminal typing, and halftone scanline effects.
+- Keep copy direct. Show the operating system components instead of explaining the brand.
+- Use supplied or licensed audio only. Default mix: 1s fade-in, 2s fade-out, 35-40% volume.
+- Start from `templates/videos/01-remotion-cd-rom-launch.md` for the Multiplayer OS CD-ROM launch format.
 
 ### React Prototypes
 
