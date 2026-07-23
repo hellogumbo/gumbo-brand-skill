@@ -1,0 +1,11 @@
+{
+  "name": "gumbo-brand",
+  "description": "Apply Gumbo's brand system to presentations, documents, web artifacts, social content, and prototypes.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gumbo"
+  },
+  "homepage": "https://github.com/hellogumbo/gumbo-brand-skill",
+  "repository": "https://github.com/hellogumbo/gumbo-brand-skill",
+  "keywords": ["brand", "design", "presentations", "documents", "social"]
+}
