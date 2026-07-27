@@ -1,0 +1,38 @@
+{
+  "name": "gumbo-brand",
+  "version": "1.0.0",
+  "description": "Apply Gumbo's brand system to presentations, documents, web artifacts, social content, and prototypes.",
+  "author": {
+    "name": "Gumbo",
+    "url": "https://github.com/hellogumbo"
+  },
+  "repository": "https://github.com/hellogumbo/gumbo-brand-skill",
+  "keywords": [
+    "brand",
+    "design",
+    "presentations",
+    "documents",
+    "social"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Gumbo Brand",
+    "shortDescription": "Apply Gumbo's brand system to any deliverable.",
+    "longDescription": "Create consistent Gumbo presentations, documents, web artifacts, social content, and prototypes with shared layouts, imagery, typography, icons, and export workflows.",
+    "developerName": "Gumbo",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Create an on-brand Gumbo presentation.",
+      "Turn this content into a Gumbo-branded document.",
+      "Design a Gumbo social post from this announcement."
+    ],
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/logo/pot-icon.svg",
+    "logo": "./assets/logo/wordmark-with-background.png",
+    "logoDark": "./assets/logo/wordmark-with-background.png"
+  }
+}

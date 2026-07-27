@@ -1,41 +1,66 @@
-# Gumbo Brand Skill
+# Gumbo Brand Plugins
 
-A reusable [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code/skills) that applies Gumbo's brand identity to any AI-generated output — presentations, documents, HTML artifacts, social posts, and React prototypes.
+A dual-compatible plugin package for ChatGPT/Codex and Claude Code. Both platforms load the same five Gumbo brand skills and the same bundled assets from one self-contained plugin root.
 
-## What's in here
+## Package layout
 
+```text
+plugins/
+  gumbo-brand/
+    .codex-plugin/
+      plugin.json       # ChatGPT Work mode, Codex app, CLI, and IDE
+    .claude-plugin/
+      plugin.json       # Claude Code
+    skills/
+      foundations/
+      visual-assets/
+      layouts/
+      presentations/
+      artifacts/
+    assets/
+      icons/
+      logo/
+      photography/
+    scripts/
+      html-export.mjs
+    templates/
+      slides/
 ```
-SKILL.md              # The brand system (the skill itself)
-assets/
-  icons/              # 6,120 Pika icon SVGs (stroke, solid, duo-stroke, duo-solid, contrast)
-  logo/               # Wordmarks + icon marks
-  images/halftone/    # Pre-treated brand photography
-references/           # Design tokens and reference files
-```
 
-## Installation
+Keeping both manifests in one plugin root avoids duplicating the Pika icon library and brand photography. Each platform ignores the other platform's manifest directory.
 
-Copy or symlink this repo into your Claude Code skills directory:
+## Skills
+
+| Skill | Use |
+|---|---|
+| `foundations` | Core principles, colors, typography, icons, CSS tokens, components, and voice |
+| `visual-assets` | Photography, generated imagery, halftone treatments, and logo usage |
+| `layouts` | Spacing, layout blocks, tables, charts, and stat patterns |
+| `presentations` | Deck structure, slide types, sequencing, and slide templates |
+| `artifacts` | Documents, proposals, HTML, web, social, React, export, and visual review |
+
+## ChatGPT and Codex
+
+The entry point is `plugins/gumbo-brand/.codex-plugin/plugin.json`. Add `plugins/gumbo-brand` as the source directory in a local or team Codex marketplace, then install `gumbo-brand` from that source.
+
+The manifest includes ChatGPT/Codex display metadata, starter prompts, brand color, icons, and the bundled `skills/` path.
+
+## Claude Code
+
+Load the same plugin root directly during development:
 
 ```bash
-# Option 1: Clone directly into skills
-git clone git@github.com:<your-username>/gumbo-brand-skill.git ~/.claude/skills/gumbo-brand
-
-# Option 2: Symlink
-git clone git@github.com:<your-username>/gumbo-brand-skill.git ~/projects/gumbo-brand-skill
-ln -s ~/projects/gumbo-brand-skill ~/.claude/skills/gumbo-brand
+claude --plugin-dir ./plugins/gumbo-brand
 ```
 
-Once installed, the skill triggers automatically when Claude detects Gumbo-related work.
+For persistent local use, clone this repository and symlink the plugin root into the Claude skills directory:
 
-## What it covers
+```bash
+ln -s /absolute/path/to/gumbo-brand-skill/plugins/gumbo-brand ~/.claude/skills/gumbo-brand
+```
 
-- Design philosophy and anti-patterns
-- Color system (primary blue + 4 accent palettes, full 10-step scales)
-- Canvas-aware typography (4 tiers for different output sizes)
-- 15+ layout blocks with exact spacing specs
-- Presentation slide types and deck sequencing
-- Data table, chart, and graph styling
-- Photography treatment and image generation prompts
-- Voice and tone guidance
-- Output-specific rules for PPTX, DOCX, PDF, HTML, social, email, and React
+Start a new Claude Code session after the first installation.
+
+## Shared resource paths
+
+Skill instructions use `${CLAUDE_PLUGIN_ROOT}` for Claude compatibility. In ChatGPT/Codex, each skill derives the equivalent plugin root from its installed `SKILL.md` location before accessing assets, templates, or scripts.
