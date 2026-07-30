@@ -136,24 +136,30 @@ a {
   row-gap: var(--space-4);
 }
 
-.split-header__label {
+.split-header--labeled .split-header__label {
   grid-area: label;
 }
 
 .split-header__heading {
-  grid-area: heading;
   font-size: 52px;
   letter-spacing: 0;
   line-height: 1.14;
 }
 
+.split-header--labeled .split-header__heading {
+  grid-area: heading;
+}
+
 .split-header__copy {
-  grid-area: copy;
   max-width: 760px;
   color: var(--gumbo-black-90);
   font-size: 22px;
   letter-spacing: 0;
   line-height: 1.5;
+}
+
+.split-header--labeled .split-header__copy {
+  grid-area: copy;
 }
 
 .divider {
