@@ -64,7 +64,15 @@ Do not publish the files in `skills/gumbo-brand/references/` as independent skil
 
 ## Claude Code
 
-Install the Gumbo marketplace and plugin from GitHub:
+Quickest path: run the setup script. It adds the marketplace (or refreshes it if already added) and installs the plugin at user scope with no prompts:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/hellogumbo/gumbo-brand-skill/main/setup.sh | bash
+```
+
+Or from a clone: `./setup.sh`. Then restart Claude Code or run `/reload-plugins`.
+
+To install manually instead, run these inside a Claude Code session:
 
 ```text
 /plugin marketplace add hellogumbo/gumbo-brand-skill
