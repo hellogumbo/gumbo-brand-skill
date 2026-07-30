@@ -64,19 +64,35 @@ Do not publish the files in `skills/gumbo-brand/references/` as independent skil
 
 ## Claude Code
 
-Load the same plugin root directly during development:
+Install the Gumbo marketplace and plugin from GitHub:
+
+```text
+/plugin marketplace add hellogumbo/gumbo-brand-skill
+/plugin install gumbo-brand@gumbo-team
+/reload-plugins
+```
+
+Choose user scope when Claude asks where to install it. User scope makes Gumbo Brand available from any project folder, including a new empty folder.
+
+In Claude Code Desktop, open the plugin manager from the `+` menu beside the prompt. Add `hellogumbo/gumbo-brand-skill` as a marketplace, install `gumbo-brand` from the `Gumbo Team` marketplace, and reload plugins.
+
+Do not copy `SKILL.md` into `~/.claude/skills`, and do not symlink the plugin root there. A standalone skill does not establish `${CLAUDE_PLUGIN_ROOT}`, so Claude can load the instructions while missing every bundled asset.
+
+For local plugin development only, clone the repository and load the plugin root for that session:
 
 ```bash
 claude --plugin-dir ./plugins/gumbo-brand
 ```
 
-For persistent local use, clone this repository and symlink the plugin root into the Claude skills directory:
+After a repository update, refresh the marketplace and plugin:
 
-```bash
-ln -s /absolute/path/to/gumbo-brand-skill/plugins/gumbo-brand ~/.claude/skills/gumbo-brand
+```text
+/plugin marketplace update gumbo-team
+/plugin update gumbo-brand@gumbo-team
+/reload-plugins
 ```
 
-Start a new Claude Code session after the first installation.
+The Claude manifest intentionally omits a fixed version. Claude therefore keys marketplace updates to the Git commit SHA instead of leaving users pinned to an older plugin with the same semantic version.
 
 ## Verify the installed package
 
@@ -120,4 +136,4 @@ node plugins/gumbo-brand/scripts/html-export.mjs \
 
 ## Shared resource resolution
 
-The skill uses `${CLAUDE_PLUGIN_ROOT}` for Claude compatibility. In Codex, it derives the plugin root from its installed location and runs `verify-install.mjs` before referencing shared resources. A prose-only fallback is intentionally not supported.
+The skill uses `${CLAUDE_PLUGIN_ROOT}` for Claude compatibility. In Codex, it derives the plugin root from its installed location and runs `verify-install.mjs` before referencing shared resources. The project folder is only the output destination; bundled assets always come from the verified plugin root. A prose-only fallback is intentionally not supported.

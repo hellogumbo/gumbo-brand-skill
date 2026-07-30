@@ -1,0 +1,22 @@
+{
+  "name": "gumbo-team",
+  "description": "Official Gumbo plugins for branded documents, presentations, websites, social content, and prototypes.",
+  "owner": {
+    "name": "Gumbo"
+  },
+  "plugins": [
+    {
+      "name": "gumbo-brand",
+      "source": "./plugins/gumbo-brand",
+      "description": "Build Gumbo presentations, documents, web artifacts, social content, and prototypes from bundled assets, themes, and executable starters.",
+      "category": "Productivity",
+      "tags": [
+        "brand",
+        "design",
+        "presentations",
+        "documents",
+        "social"
+      ]
+    }
+  ]
+}
