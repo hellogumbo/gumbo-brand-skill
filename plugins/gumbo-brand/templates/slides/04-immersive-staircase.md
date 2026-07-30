@@ -77,7 +77,7 @@ Full-bleed halftone image background with two equal columns separated by a white
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 64px;
-        letter-spacing: -2.56px;
+        letter-spacing: 0;
         line-height: 1;
         color: white;
       ">
@@ -117,7 +117,7 @@ Full-bleed halftone image background with two equal columns separated by a white
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 64px;
-        letter-spacing: -2.56px;
+        letter-spacing: 0;
         line-height: 1;
         color: white;
       ">

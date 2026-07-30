@@ -1,0 +1,20 @@
+{
+  "name": "gumbo-team",
+  "interface": {
+    "displayName": "Gumbo Team"
+  },
+  "plugins": [
+    {
+      "name": "gumbo-brand",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gumbo-brand"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

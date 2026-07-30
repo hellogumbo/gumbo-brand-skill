@@ -43,17 +43,16 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
       padding: 104px 40px 0 102px;
     ">
 
-      <!-- Overline / client name -->
+      <!-- Optional context label / client name -->
       <div style="
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 20px;
-        letter-spacing: 0.4px;
-        text-transform: uppercase;
+        letter-spacing: 0;
         color: var(--gumbo-black-70);
         margin-bottom: 20px;
       ">
-        CASESTUDY // CLIENT NAME
+        Client name case study
       </div>
 
       <!-- Main heading with stat badge -->
@@ -61,8 +60,8 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 64px;
-        letter-spacing: -2.56px;
-        line-height: 1;
+        letter-spacing: 0;
+        line-height: 1.1;
         color: var(--gumbo-black-100);
         margin-bottom: 16px;
       ">
@@ -78,7 +77,7 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
           font-family: 'SF Compact Rounded', var(--font-body);
           font-weight: 600;
           font-size: 28px;
-          letter-spacing: -0.56px;
+          letter-spacing: 0;
           border-radius: 999px;
           line-height: 1.2;
         ">↓50%</span>
@@ -89,7 +88,7 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 32px;
-        letter-spacing: -1.28px;
+        letter-spacing: 0;
         line-height: 1.2;
         color: var(--gumbo-black-100);
         margin-bottom: 40px;
@@ -110,7 +109,7 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
         font-family: var(--font-body);
         font-weight: 400;
         font-size: 24px;
-        letter-spacing: -0.48px;
+        letter-spacing: 0;
         line-height: 1.6;
         color: var(--gumbo-black-100);
         margin: 0 0 24px 0;
@@ -122,7 +121,7 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
         font-family: var(--font-body);
         font-weight: 400;
         font-size: 24px;
-        letter-spacing: -0.48px;
+        letter-spacing: 0;
         line-height: 1.6;
         color: var(--gumbo-black-100);
         margin: 0;
@@ -150,8 +149,8 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
          - border-radius: var(--radius-md) (8px)
          - Slight overlap and stagger (offset 30-60px each)
          - Can bleed past the right edge
-         - Small-caps labels like "FRONT END", "CMS", "DATA // PIPELINE"
-           in Space Grotesk 14px, uppercase, color var(--gumbo-black-70)
+         - Sentence-case labels like "Front end", "CMS", "Data pipeline"
+           in Space Grotesk 14px, normal tracking, color var(--gumbo-black-70)
          - Optional: name tag cursors for team collaboration feel
     -->
 
@@ -175,10 +174,9 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 14px;
-        letter-spacing: 0.56px;
-        text-transform: uppercase;
+        letter-spacing: 0;
         color: var(--gumbo-black-70);
-      ">FRONT END</div>
+      ">Front end</div>
     </div>
     -->
 
@@ -212,12 +210,12 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
 ### DermSquared
 
 ```yaml
-overline: "CASESTUDY // DERMSQUARED"
+context_label: "DermSquared case study"
 heading: "Modernizing dermatology education"
 stat_badge: "3x"
 stat_context: "engagement increase"
 sub_heading: "Full-stack platform redesign"
 body_p1: "DermSquared needed to consolidate fragmented tools across their .com and .org properties into a cohesive digital experience for dermatology professionals."
 body_p2: "Gumbo delivered a unified design system, rebuilt the component library, and shipped a modernized platform that tripled user engagement within the first quarter."
-screenshot_labels: ["FRONT END", "CMS", "DATA // PIPELINE"]
+screenshot_labels: ["Front end", "CMS", "Data pipeline"]
 ```

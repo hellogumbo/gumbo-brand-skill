@@ -58,7 +58,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
       font-family: var(--font-heading);
       font-weight: 400;
       font-size: 101.28px;
-      letter-spacing: -4.05px;
+      letter-spacing: 0;
       line-height: 1;
       color: #252525;
     ">
@@ -70,7 +70,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
       font-family: var(--font-body);
       font-weight: 400;
       font-size: 24px;
-      letter-spacing: -0.48px;
+      letter-spacing: 0;
       line-height: 1.6;
       color: #252525;
     ">
@@ -133,7 +133,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 45px;
-            letter-spacing: -1.8px;
+            letter-spacing: 0;
             line-height: 1;
             color: #252525;
           ">
@@ -143,7 +143,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 25px;
-            letter-spacing: -0.5px;
+            letter-spacing: 0;
             line-height: 1.4;
             color: #252525;
             opacity: 0.7;
@@ -161,7 +161,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
           font-family: var(--font-body);
           font-weight: 600;
           font-size: 31px;
-          letter-spacing: -0.62px;
+          letter-spacing: 0;
           padding: 16px 36px;
           border-radius: 17px;
           text-decoration: none;
@@ -198,7 +198,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
           font-family: var(--font-body);
           font-weight: 700;
           font-size: 24px;
-          letter-spacing: -0.48px;
+          letter-spacing: 0;
           color: #252525;
           margin-bottom: 4px;
         ">
@@ -213,7 +213,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             color: #252525;
           ">hello@hellogumbo.com</span>
         </div>
@@ -225,7 +225,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             color: #252525;
           ">name@hellogumbo.com</span>
         </div>
@@ -237,7 +237,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             color: #252525;
           ">team@hellogumbo.com</span>
         </div>
@@ -259,7 +259,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             color: #252525;
           ">www.hellogumbo.com</span>
         </div>

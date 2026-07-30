@@ -80,7 +80,7 @@ Full-bleed immersive slide with a halftone brand image background, dark gradient
         font-family: var(--font-heading);
         font-weight: 400;
         font-size: 64px;
-        letter-spacing: -1.8px;
+        letter-spacing: 0;
         line-height: 1.2;
         color: var(--gumbo-white);
       ">

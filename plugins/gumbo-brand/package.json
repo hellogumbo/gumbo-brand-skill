@@ -1,0 +1,14 @@
+{
+  "name": "@hellogumbo/gumbo-brand-plugin",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "playwright": "^1.61.1"
+  },
+  "scripts": {
+    "test": "npm run verify && npm run smoke",
+    "verify": "node scripts/verify-install.mjs",
+    "smoke": "node scripts/smoke-test.mjs"
+  }
+}

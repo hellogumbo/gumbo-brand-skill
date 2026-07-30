@@ -1,13 +1,13 @@
 ---
 name: layouts
-description: Compose Gumbo-branded visual layouts using the spacing system, vertical rhythm, reusable layout blocks, data tables, charts, and stat patterns. Use for any Gumbo deck, document, infographic, social image, webpage, dashboard, or prototype that needs visual structure. Apply gumbo-brand:foundations alongside this skill.
+description: Compose Gumbo-branded visual layouts using the spacing system, vertical rhythm, reusable layout blocks, data tables, charts, and stat patterns. Use for any Gumbo deck, document, infographic, social image, webpage, dashboard, or prototype that needs visual structure. Apply the foundations companion alongside this skill.
 ---
 
 # Gumbo Layout System
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly; in ChatGPT/Codex, derive the root as two directories above this `SKILL.md` before using a referenced path.
+Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/layouts/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
 
-Apply `gumbo-brand:foundations` alongside this skill for colors, typography, artboard tiers, icons, imagery, and logo rules.
+Apply the companion whose frontmatter name is `foundations` alongside this skill for colors, typography, artboard tiers, icons, imagery, and logo rules.
 
 ## Spacing System
 
@@ -113,7 +113,7 @@ Two case studies side by side (or stacked on Tier 3 / small canvases). In presen
 | Property | Tier 1 | Tier 2 |
 |----------|--------|--------|
 | Layout | 2 columns, 48px gutter | 2 columns, 24px gutter (or stacked) |
-| Overline | `CASESTUDY // CLIENT NAME` format. SF Pro Medium, 13px, `#727272`, uppercase, 0.08em tracking | SF Pro Medium, 9px, `#727272`, uppercase |
+| Context label | Optional `Client name case study` format. SF Pro Medium, 13px, `#727272`, sentence case, normal tracking | SF Pro Medium, 9px, `#727272`, sentence case, normal tracking |
 | Heading | Space Grotesk, H3 from tier | Space Grotesk, H3 from tier |
 | Body | SF Pro, Body from tier, 2-3 sentences max | Same |
 | Stat callout | SF Compact Rounded inside a `#2563eb` badge, white text, `border-radius: 9999px`, `8px 16px` padding | Same pattern, scaled to tier |

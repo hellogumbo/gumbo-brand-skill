@@ -1,13 +1,25 @@
 ---
 name: artifacts
-description: Create and export Gumbo-branded documents, proposals, SOWs, PDFs, email templates, infographics, HTML artifacts, websites, social posts, and React prototypes. Use for non-presentation Gumbo deliverables and for the shared HTML-to-PDF/PNG export and mandatory visual-review workflow. Apply gumbo-brand:foundations and gumbo-brand:layouts alongside this skill.
+description: Create and export Gumbo-branded documents, proposals, SOWs, PDFs, email templates, infographics, HTML artifacts, websites, social posts, and React prototypes. Use for non-presentation Gumbo deliverables and for the shared HTML-to-PDF/PNG export and mandatory visual-review workflow. Apply the foundations and layouts companions alongside this skill.
 ---
 
 # Gumbo Artifacts
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly; in ChatGPT/Codex, derive the root as two directories above this `SKILL.md` before using a referenced path.
+Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/artifacts/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
 
-Apply `gumbo-brand:foundations` and `gumbo-brand:layouts` alongside this skill before building the deliverable. Also load `gumbo-brand:visual-assets` when using photography, generated imagery, or logos.
+Apply the companions whose frontmatter names are `foundations` and `layouts` before building the deliverable. Also load `visual-assets` when using photography, generated imagery, or logos.
+
+## Start from the bundled structure
+
+Do not begin Gumbo HTML work from a blank file. Generate the appropriate self-contained source:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" --type document --out ./gumbo-document.html
+node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" --type web --out ./gumbo-web-page.html
+node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" --type social --out ./gumbo-social-card.html
+```
+
+Edit the generated structure. It already contains the canonical CSS theme, official wordmark SVG, and bundled photography.
 
 ## Output types
 
@@ -99,6 +111,16 @@ Follow HTML artifact principles with **Tier 1** type scale.
 ## HTML Export Pipeline
 
 The Gumbo workflow is: **build as HTML first, then export to PDF or PNG**. HTML is the source of truth for all deliverables. The export script at `${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs` handles conversion.
+
+For collaborative review, run:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/html-edit-server.mjs" \
+  ./gumbo-document.html \
+  --out ./gumbo-document.html \
+  --pdf ./gumbo-document.pdf \
+  --size letter
+```
 
 This pipeline is agent-agnostic. Any AI agent, CI pipeline, or human developer can run the script. No proprietary skills, platform-specific tools, or Claude-specific features are assumed.
 

@@ -1,7 +1,7 @@
 {
   "name": "gumbo-brand",
-  "version": "1.0.0",
-  "description": "Apply Gumbo's brand system to presentations, documents, web artifacts, social content, and prototypes.",
+  "version": "1.1.0+codex.20260730172247",
+  "description": "Build Gumbo presentations, documents, web artifacts, social content, and prototypes from bundled assets, themes, and executable starters.",
   "author": {
     "name": "Gumbo",
     "url": "https://github.com/hellogumbo"
@@ -17,8 +17,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Gumbo Brand",
-    "shortDescription": "Apply Gumbo's brand system to any deliverable.",
-    "longDescription": "Create consistent Gumbo presentations, documents, web artifacts, social content, and prototypes with shared layouts, imagery, typography, icons, and export workflows.",
+    "shortDescription": "Build with Gumbo assets, themes, and starters.",
+    "longDescription": "Create Gumbo presentations, documents, web artifacts, social content, and prototypes from bundled layouts, imagery, typography, Pika icons, HTML starters, and verified export workflows.",
     "developerName": "Gumbo",
     "category": "Productivity",
     "capabilities": [
@@ -26,9 +26,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Create an on-brand Gumbo presentation.",
-      "Turn this content into a Gumbo-branded document.",
-      "Design a Gumbo social post from this announcement."
+      "Build a Gumbo deck from the bundled templates.",
+      "Create a Gumbo document using official assets.",
+      "Make a Gumbo social post from this announcement."
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./assets/logo/pot-icon.svg",
