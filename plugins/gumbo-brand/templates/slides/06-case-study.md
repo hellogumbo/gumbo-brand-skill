@@ -61,7 +61,7 @@ Two-panel layout with a text-heavy left panel (overline, heading with stat badge
         font-weight: 400;
         font-size: 64px;
         letter-spacing: 0;
-        line-height: 1.1;
+        line-height: 1.14;
         color: var(--gumbo-black-100);
         margin-bottom: 16px;
       ">

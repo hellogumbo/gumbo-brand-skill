@@ -89,7 +89,20 @@ The signature Gumbo pattern. Heading anchored left, body copy flowing right. A t
 | Divider below | `1px solid #e8e8e8`, full width, `16px` below content | `1px solid #e8e8e8`, full width, `12px` below | `1px solid #e8e8e8`, full width, `8px` below |
 | Heading size | Display / H1 from tier scale | Title / H1 from tier scale | Headline from tier scale |
 | Body size | Body Large from tier scale | Body from tier scale | Body from tier scale |
-| Vertical alignment | Heading baseline aligns with first line of body copy | Same | Top-aligned |
+| Label-to-heading gap | `16px` minimum | `16px` minimum | `12px` minimum |
+| Vertical alignment | Body copy top aligns with heading top, within `4px` | Same | Same |
+
+Use a two-row grid when the split header includes a context label. Keep the label in the first row and place the heading and body in the second row:
+
+```html
+<section class="split-header split-header--labeled">
+  <p class="overline split-header__label">What changed</p>
+  <h2 class="split-header__heading">A clear section heading.</h2>
+  <p class="split-header__copy">Body copy starts level with the heading, not the label.</p>
+</section>
+```
+
+Do not wrap the label and heading in a nested left-column container. That makes `align-items: start` align the body copy with the label and leaves the body visibly too high.
 
 ### Block: Icon Strip
 

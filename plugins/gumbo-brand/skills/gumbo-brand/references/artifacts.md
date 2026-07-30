@@ -237,6 +237,8 @@ After building or modifying any HTML artifact, visually inspect the output befor
    - **Footer visibility**: footer pushed off-page or overlapping content
    - **Spacing rhythm**: consistent gaps between sections, no collapsed margins
    - **Type hierarchy**: headings visually distinct from body text, correct font weights rendering
+   - **Split-header alignment**: body copy begins level with the heading, not the context label
+   - **Heading breathing room**: at least 16px between a context label and heading; multiline headings use at least 1.14 line-height
    - **Image placeholders**: any `REPLACE_WITH_*` text still visible
 5. **Fix issues** found in the HTML source.
 6. **Repeat steps 2-5** until the review is clean.

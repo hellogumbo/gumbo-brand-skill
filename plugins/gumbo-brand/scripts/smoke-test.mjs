@@ -31,6 +31,13 @@ function collectFiles(directory, extensions = new Set([".css", ".html", ".md"]))
   return files;
 }
 
+function declarationBlocks(source) {
+  return [
+    ...[...source.matchAll(/\{([^{}]+)\}/g)].map((match) => match[1]),
+    ...[...source.matchAll(/style\s*=\s*"([^"]+)"/g)].map((match) => match[1]),
+  ];
+}
+
 try {
   console.log(run("verify-install.mjs"));
 
@@ -66,6 +73,20 @@ try {
     }
     if (/>\s*\/\/|\/\/\s+[A-Z][A-Z]/.test(source)) {
       throw new Error(`${relativePath}: decorative slash labels are forbidden`);
+    }
+    for (const declarations of declarationBlocks(source)) {
+      const fontSize = Number.parseFloat(declarations.match(/font-size\s*:\s*([\d.]+)px/i)?.[1]);
+      const lineHeight = Number.parseFloat(declarations.match(/line-height\s*:\s*([\d.]+)/i)?.[1]);
+      if (
+        Number.isFinite(fontSize)
+        && fontSize >= 32
+        && Number.isFinite(lineHeight)
+        && lineHeight < 1.14
+      ) {
+        throw new Error(
+          `${relativePath}: ${fontSize}px display text uses crowded ${lineHeight} line-height; minimum is 1.14`,
+        );
+      }
     }
   }
 

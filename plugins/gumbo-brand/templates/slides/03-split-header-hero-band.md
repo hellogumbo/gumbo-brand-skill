@@ -47,7 +47,7 @@ Same split-header layout as template 02 (title left, body right in the top 316px
       font-weight: 400;
       font-size: 64px;
       letter-spacing: 0;
-      line-height: 1;
+      line-height: 1.14;
       color: #252525;
     ">
       Section Title

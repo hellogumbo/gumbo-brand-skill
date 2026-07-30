@@ -59,7 +59,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
       font-weight: 400;
       font-size: 101.28px;
       letter-spacing: 0;
-      line-height: 1;
+      line-height: 1.14;
       color: #252525;
     ">
       Let's cook.
@@ -134,7 +134,7 @@ Two-panel closing slide with a left panel containing the pot icon, headline, and
             font-weight: 400;
             font-size: 45px;
             letter-spacing: 0;
-            line-height: 1;
+            line-height: 1.14;
             color: #252525;
           ">
             Book an audit

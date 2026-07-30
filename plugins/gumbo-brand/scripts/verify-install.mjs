@@ -53,6 +53,7 @@ const requiredFiles = [
   "templates/html/social-card.html",
   "templates/slides/01-title-opener.md",
   "scripts/create-html.mjs",
+  "scripts/audit-regression-test.mjs",
   "scripts/html-edit-server.mjs",
   "scripts/html-export.mjs",
   "scripts/lib/brand-audit.mjs",

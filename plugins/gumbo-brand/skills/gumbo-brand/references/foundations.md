@@ -210,7 +210,7 @@ Use these combinations for accessible text. All meet WCAG AA (4.5:1 for normal t
 - **Weight**: Regular (400) — not Bold. The font carries enough character at regular weight.
 - **Availability**: Freely available on [Google Fonts](https://fonts.google.com/specimen/Space+Grotesk). Always load it for any HTML/web output.
 - **Tracking**: Normal (`letter-spacing: 0`) at every size.
-- **Line height**: At least 1.1 for display headings and 1.1-1.2 for other headings.
+- **Line height**: At least 1.14 for multiline display headings and 1.14-1.2 for other multiline headings.
 - **Fallback**: `'Space Grotesk', 'Inter', system-ui, sans-serif`
 
 ### Body: SF Pro
@@ -239,7 +239,7 @@ Typography must adapt to the canvas. The skill groups artboards into four tiers.
 - Write headings, labels, and body copy in sentence case. Uppercase is only for established acronyms.
 - Do not add decorative slash prefixes.
 - Use `letter-spacing: 0` for every visible phrase.
-- Use line-height of at least 1.08 for multiline headings and 1.35 for body text.
+- Use line-height of at least 1.14 for multiline headings and 1.35 for body text.
 - Keep headings to three lines or fewer.
 - Leave at least 32px between text columns and at least 16px between a label and its heading.
 
@@ -247,8 +247,8 @@ Typography must adapt to the canvas. The skill groups artboards into four tiers.
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Display / H1   | Space Grotesk     | Regular | 72 / 64px | 0        | 1.1         |
-| H2             | Space Grotesk     | Regular | 52 / 48px | 0        | 1.1         |
+| Display / H1   | Space Grotesk     | Regular | 72 / 64px | 0        | 1.14        |
+| H2             | Space Grotesk     | Regular | 52 / 48px | 0        | 1.14        |
 | H3             | Space Grotesk     | Regular | 34 / 32px | 0        | 1.2         |
 | H4             | Space Grotesk     | Regular | 24px     | 0        | 1.3         |
 | Body Large     | SF Pro            | Regular | 24 / 22px | 0        | 1.5         |
@@ -260,8 +260,8 @@ Typography must adapt to the canvas. The skill groups artboards into four tiers.
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Title / H1     | Space Grotesk     | Regular | 32 / 28px | 0        | 1.1         |
-| H2             | Space Grotesk     | Regular | 22 / 20px | 0        | 1.15        |
+| Title / H1     | Space Grotesk     | Regular | 32 / 28px | 0        | 1.16        |
+| H2             | Space Grotesk     | Regular | 22 / 20px | 0        | 1.16        |
 | H3             | Space Grotesk     | Regular | 15 / 14px | 0        | 1.2         |
 | H4             | Space Grotesk     | Regular | 12px     | 0        | 1.3         |
 | Body           | SF Pro            | Regular | 11 / 10px | 0        | 1.5         |
@@ -273,7 +273,7 @@ Typography must adapt to the canvas. The skill groups artboards into four tiers.
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Headline       | Space Grotesk     | Regular | 44 / 36px | 0        | 1.1         |
+| Headline       | Space Grotesk     | Regular | 44 / 36px | 0        | 1.14        |
 | Subhead        | Space Grotesk     | Regular | 22 / 20px | 0        | 1.15        |
 | Body           | SF Pro            | Regular | 15 / 14px | 0        | 1.5         |
 | Caption        | SF Pro            | Medium  | 12 / 11px | 0        | 1.4         |
@@ -285,7 +285,7 @@ Stories and banners are special — they're either very tall or very wide, so ty
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Headline       | Space Grotesk     | Regular | 56 / 48px | 0        | 1.1         |
+| Headline       | Space Grotesk     | Regular | 56 / 48px | 0        | 1.14        |
 | Supporting     | SF Pro            | Regular | 20 / 18px | 0        | 1.4         |
 | Stat           | SF Compact Rounded| Semibold| 64 / 48px | 0        | 1.1         |
 

@@ -46,7 +46,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
       font-weight: 400;
       font-size: 64px;
       letter-spacing: 0;
-      line-height: 1;
+      line-height: 1.14;
       color: var(--gumbo-black-100);
     ">
       Section Heading

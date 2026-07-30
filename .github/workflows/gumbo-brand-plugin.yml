@@ -52,3 +52,6 @@ jobs:
         env:
           GUMBO_RENDERER: system
         run: node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/document.html" "$RUNNER_TEMP/gumbo-brand/document-system.png" --width 816 --height 1056
+
+      - name: Verify alignment audit failures
+        run: npm run audit:regression

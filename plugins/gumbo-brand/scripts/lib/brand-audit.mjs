@@ -59,12 +59,13 @@ export async function auditGumboPage(page) {
       const fontSize = Number.parseFloat(style.fontSize);
       if (Number.isFinite(lineHeight) && Number.isFinite(fontSize) && fontSize > 0) {
         const ratio = lineHeight / fontSize;
-        const minimum = /^H[1-6]$/.test(element.tagName) ? 1.08 : 1.35;
+        const isHeading = /^H[1-6]$/.test(element.tagName);
+        const lineCount = isHeading ? Math.max(1, Math.round(rect.height / lineHeight)) : 1;
+        const minimum = isHeading && lineCount > 1 ? 1.14 : isHeading ? 1.08 : 1.35;
         if (ratio + 0.005 < minimum) {
           issues.push(`crowded line height (${ratio.toFixed(2)}, minimum ${minimum}): ${label(element)}`);
         }
-        if (/^H[1-6]$/.test(element.tagName)) {
-          const lineCount = Math.round(rect.height / lineHeight);
+        if (isHeading) {
           if (lineCount > 3) {
             issues.push(`heading wraps to ${lineCount} lines (maximum 3): ${label(element)}`);
           }
@@ -89,6 +90,35 @@ export async function auditGumboPage(page) {
           || rect.bottom > pageRect.bottom + 1
         ) {
           issues.push(`text outside fixed canvas: ${label(element)}`);
+        }
+      }
+    }
+
+    const splitHeaders = [
+      ...document.querySelectorAll(".split-header, .slide-header"),
+    ].filter(visible);
+    for (const splitHeader of splitHeaders) {
+      const heading = splitHeader.querySelector(".split-header__heading");
+      const copy = splitHeader.querySelector(".split-header__copy");
+      if (!heading || !copy || !visible(heading) || !visible(copy)) continue;
+
+      const headingRect = heading.getBoundingClientRect();
+      const copyRect = copy.getBoundingClientRect();
+      const topDelta = Math.abs(headingRect.top - copyRect.top);
+      if (topDelta > 4) {
+        issues.push(
+          `split-header body misalignment (${topDelta.toFixed(1)}px; maximum 4px): ${label(heading)} ↔ ${label(copy)}`,
+        );
+      }
+
+      const contextLabel = splitHeader.querySelector(".split-header__label, .overline");
+      if (contextLabel && visible(contextLabel)) {
+        const labelRect = contextLabel.getBoundingClientRect();
+        const labelGap = headingRect.top - labelRect.bottom;
+        if (labelGap < 15.5) {
+          issues.push(
+            `label-to-heading gap (${labelGap.toFixed(1)}px; minimum 16px): ${label(contextLabel)} ↔ ${label(heading)}`,
+          );
         }
       }
     }
