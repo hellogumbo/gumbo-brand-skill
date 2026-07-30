@@ -1,7 +1,7 @@
 {
   "name": "gumbo-brand",
-  "description": "Apply Gumbo's brand system to presentations, documents, web artifacts, social content, and prototypes.",
-  "version": "1.0.0",
+  "description": "Build Gumbo presentations, documents, web artifacts, social content, and prototypes from bundled assets, themes, and executable starters.",
+  "version": "1.1.0",
   "author": {
     "name": "Gumbo"
   },

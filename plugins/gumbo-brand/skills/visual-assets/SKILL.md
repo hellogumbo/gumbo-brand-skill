@@ -1,13 +1,13 @@
 ---
 name: visual-assets
-description: Select and apply Gumbo brand photography, generate matching halftone imagery, use CSS-only image fallbacks, and embed official Gumbo wordmarks or icons. Use whenever a Gumbo deliverable needs photography, an immersive image, generated brand imagery, a logo, wordmark, pot icon, or lettermark. Apply gumbo-brand:foundations alongside this skill.
+description: Select and apply Gumbo brand photography, generate matching halftone imagery, use CSS-only image fallbacks, and embed official Gumbo wordmarks or icons. Use whenever a Gumbo deliverable needs photography, an immersive image, generated brand imagery, a logo, wordmark, pot icon, or lettermark. Apply the foundations companion alongside this skill.
 ---
 
 # Gumbo Visual Assets
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly; in ChatGPT/Codex, derive the root as two directories above this `SKILL.md` before using a referenced path.
+Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/visual-assets/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
 
-Apply `gumbo-brand:foundations` alongside this skill for colors, typography, and brand principles. Use bundled files through `${CLAUDE_PLUGIN_ROOT}`; never recreate or approximate official assets.
+Apply the companion whose frontmatter name is `foundations` alongside this skill for colors, typography, and brand principles. Use bundled files through `${CLAUDE_PLUGIN_ROOT}`; never recreate or approximate official assets.
 
 ## Photography & Imagery
 

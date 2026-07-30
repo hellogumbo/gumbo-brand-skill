@@ -5,7 +5,7 @@ description: Apply Gumbo's core brand identity, design philosophy, colors, typog
 
 # Gumbo Brand System
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly; in ChatGPT/Codex, derive the root as two directories above this `SKILL.md` before using a referenced path.
+Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/foundations/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
 
 Gumbo is an AI-first product and engineering studio. The brand communicates forward momentum, technical confidence, and human craft. Think: a team that ships fast, explains things plainly, and doesn't hide behind jargon.
 
@@ -15,10 +15,12 @@ This skill exists so that every output Claude produces for Gumbo — whether it'
 
 Load the matching companion skill for the deliverable:
 
-- Use `gumbo-brand:layouts` for visual composition, spacing, layout blocks, tables, or charts.
-- Use `gumbo-brand:visual-assets` for photography, image generation, halftone treatments, or logo usage.
-- Use `gumbo-brand:presentations` for decks, slides, or PPTX output.
-- Use `gumbo-brand:artifacts` for documents, proposals, PDFs, email, infographics, HTML, web, social, React, or export workflows.
+- Use the companion whose frontmatter name is `layouts` for visual composition, spacing, layout blocks, tables, or charts.
+- Use `visual-assets` for photography, image generation, halftone treatments, or logo usage.
+- Use `presentations` for decks, slides, or PPTX output.
+- Use `artifacts` for documents, proposals, PDFs, email, infographics, HTML, web, social, React, or export workflows.
+
+Prefer companions qualified with `gumbo-brand:`. If only a plain name is shown, confirm its `SKILL.md` lives under this same plugin root. Ignore loose `~/.agents/skills/mcp-*` copies because they do not include the required shared resources.
 
 ## Design Philosophy
 

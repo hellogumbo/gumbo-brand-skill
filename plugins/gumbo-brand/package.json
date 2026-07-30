@@ -1,0 +1,10 @@
+{
+  "name": "@hellogumbo/gumbo-brand-plugin",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify": "node scripts/verify-install.mjs",
+    "smoke": "node scripts/smoke-test.mjs"
+  }
+}

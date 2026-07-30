@@ -1,13 +1,23 @@
 ---
 name: presentations
-description: Create and style Gumbo-branded presentations, pitch decks, slide sequences, case-study slides, and PPTX deliverables using the bundled slide templates. Use for any Gumbo deck or slide task. Apply gumbo-brand:foundations, gumbo-brand:layouts, and gumbo-brand:visual-assets alongside this skill.
+description: Create and style Gumbo-branded presentations, pitch decks, slide sequences, case-study slides, and PPTX deliverables using the bundled slide templates. Use for any Gumbo deck or slide task. Apply the foundations, layouts, and visual-assets companions alongside this skill.
 ---
 
 # Gumbo Presentations
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly; in ChatGPT/Codex, derive the root as two directories above this `SKILL.md` before using a referenced path.
+Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/presentations/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
 
-Apply `gumbo-brand:foundations`, `gumbo-brand:layouts`, and `gumbo-brand:visual-assets` alongside this skill before authoring slides.
+Apply the companions whose frontmatter names are `foundations`, `layouts`, and `visual-assets` before authoring slides.
+
+Create the initial deck structure before writing slides:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" \
+  --type deck \
+  --out ./gumbo-deck.html
+```
+
+Edit that generated source or replace its pages with matching structures from `templates/slides/`. Do not recreate the theme, wordmark, or immersive treatment from scratch.
 
 ## Presentations (PPTX)
 

@@ -1,13 +1,13 @@
 ---
 name: layouts
-description: Compose Gumbo-branded visual layouts using the spacing system, vertical rhythm, reusable layout blocks, data tables, charts, and stat patterns. Use for any Gumbo deck, document, infographic, social image, webpage, dashboard, or prototype that needs visual structure. Apply gumbo-brand:foundations alongside this skill.
+description: Compose Gumbo-branded visual layouts using the spacing system, vertical rhythm, reusable layout blocks, data tables, charts, and stat patterns. Use for any Gumbo deck, document, infographic, social image, webpage, dashboard, or prototype that needs visual structure. Apply the foundations companion alongside this skill.
 ---
 
 # Gumbo Layout System
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly; in ChatGPT/Codex, derive the root as two directories above this `SKILL.md` before using a referenced path.
+Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/layouts/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
 
-Apply `gumbo-brand:foundations` alongside this skill for colors, typography, artboard tiers, icons, imagery, and logo rules.
+Apply the companion whose frontmatter name is `foundations` alongside this skill for colors, typography, artboard tiers, icons, imagery, and logo rules.
 
 ## Spacing System
 

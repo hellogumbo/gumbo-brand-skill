@@ -39,9 +39,26 @@
  *   node scripts/html-export.mjs custom.html out.png --width 1440 --height 900
  */
 
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { resolve, extname, dirname, basename, join } from "path";
 import { pathToFileURL } from "url";
+import { createRequire } from "module";
+
+const localRequire = createRequire(import.meta.url);
+const dependencyRequire = process.env.GUMBO_NODE_MODULES
+  ? createRequire(join(resolve(process.env.GUMBO_NODE_MODULES), "package.json"))
+  : localRequire;
+
+function findSystemChromium() {
+  const candidates = [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/usr/bin/google-chrome",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+  ];
+  return candidates.find((candidate) => existsSync(candidate)) || null;
+}
 
 const PRESETS = {
   // PDF presets — shared, presented, or printed
@@ -120,26 +137,48 @@ async function main() {
   const inputPath = resolve(args.input);
   const outputPath = resolve(args.output);
 
-  // Dynamically import puppeteer (works with npx puppeteer)
-  let puppeteer;
+  // Prefer Puppeteer, then fall back to Playwright when the host bundles it.
+  let browser;
+  let page;
+  let renderer;
   try {
-    puppeteer = await import("puppeteer");
-    puppeteer = puppeteer.default || puppeteer;
-  } catch {
-    console.error("Puppeteer is required. Install with: npm install puppeteer");
-    console.error("Or run via npx: npx puppeteer browsers install chrome");
-    process.exit(1);
+    const puppeteerModule = dependencyRequire("puppeteer");
+    const puppeteer = puppeteerModule.default || puppeteerModule;
+    browser = await puppeteer.launch({ headless: true });
+    page = await browser.newPage();
+    await page.setViewport({ width, height, deviceScaleFactor: 2 });
+    renderer = "Puppeteer";
+  } catch (puppeteerError) {
+    try {
+      const { chromium } = dependencyRequire("playwright");
+      const systemChromium = findSystemChromium();
+      browser = await chromium.launch({
+        headless: true,
+        ...(systemChromium ? { executablePath: systemChromium } : {}),
+      });
+      page = await browser.newPage({
+        viewport: { width, height },
+        deviceScaleFactor: 2,
+      });
+      renderer = "Playwright";
+    } catch (playwrightError) {
+      console.error("A Chromium renderer is required.");
+      console.error("Install Puppeteer with: npm install puppeteer");
+      console.error("Or install Playwright with: npm install playwright");
+      console.error(`Puppeteer: ${puppeteerError.message}`);
+      console.error(`Playwright: ${playwrightError.message}`);
+      process.exit(1);
+    }
   }
-
-  const browser = await puppeteer.launch({ headless: true });
-  const page = await browser.newPage();
-
-  // Set viewport to match artboard dimensions
-  await page.setViewport({ width, height, deviceScaleFactor: 2 });
 
   // Load the HTML file
   const fileUrl = pathToFileURL(inputPath).href;
   await page.goto(fileUrl, { waitUntil: "networkidle0", timeout: 30000 });
+
+  // Preview chrome must never leak into exported pixels.
+  await page.evaluate(() => {
+    document.body.classList.remove("preview");
+  });
 
   // Check for multiple .page divs
   const pageCount = await page.evaluate(() => {
@@ -156,7 +195,7 @@ async function main() {
       printBackground: true,
       margin: { top: 0, right: 0, bottom: 0, left: 0 },
     });
-    console.log(`PDF saved: ${outputPath} (${width}x${height}, ${pageCount} page${pageCount > 1 ? "s" : ""})`);
+    console.log(`PDF saved: ${outputPath} (${width}x${height}, ${pageCount} page${pageCount > 1 ? "s" : ""}, ${renderer})`);
   } else {
     // For PNG: multiple .page divs produce numbered files
     if (pageCount <= 1) {
@@ -165,7 +204,7 @@ async function main() {
         type: "png",
         clip: { x: 0, y: 0, width, height },
       });
-      console.log(`PNG saved: ${outputPath} (${width}x${height})`);
+      console.log(`PNG saved: ${outputPath} (${width}x${height}, ${renderer})`);
     } else {
       const ext = extname(outputPath);
       const base = basename(outputPath, ext);

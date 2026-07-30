@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gumbo Deck</title>
+  <style>
+{{THEME_CSS}}
+  </style>
+</head>
+<body class="preview">
+  <section class="page page--slide immersive">
+    <img class="immersive__photo" src="{{PHOTO_DATA_URI}}" alt="">
+    <div style="display:flex;flex:1;align-items:center;justify-content:space-between;padding:0 120px;gap:96px;">
+      <div>
+        <p class="overline" style="color:rgba(255,255,255,.65);">// GUMBO</p>
+        <h1 style="max-width:980px;margin-top:20px;font-size:86px;letter-spacing:-.04em;line-height:.98;">
+          Put the bold opening statement here.
+        </h1>
+      </div>
+      <div class="wordmark" style="width:220px;">{{WORDMARK_WHITE}}</div>
+    </div>
+    <footer class="footer slide-footer" style="color:rgba(255,255,255,.65);">
+      <span>Presentation context</span>
+      <span>{{DATE}}</span>
+    </footer>
+  </section>
+
+  <section class="page page--slide">
+    <header class="slide-header">
+      <div>
+        <p class="overline">// CORE IDEA</p>
+        <h2 class="split-header__heading">Explain the system plainly.</h2>
+      </div>
+      <p class="split-header__copy">
+        Use this area for the argument. Keep it readable in ten seconds and let the structured
+        content below do the detailed work.
+      </p>
+    </header>
+    <hr class="divider">
+    <div class="content-stage slide-stage">
+      <div class="grid grid--3">
+        <article class="card">
+          <p class="card__number">01</p>
+          <h3>Signal</h3>
+          <p>State the important observation.</p>
+        </article>
+        <article class="card">
+          <p class="card__number">02</p>
+          <h3>System</h3>
+          <p>Show what connects the pieces.</p>
+        </article>
+        <article class="card">
+          <p class="card__number">03</p>
+          <h3>Outcome</h3>
+          <p>Make the resulting value concrete.</p>
+        </article>
+      </div>
+    </div>
+    <footer class="footer slide-footer">
+      <div class="wordmark">{{WORDMARK_BLACK}}</div>
+      <span>02</span>
+    </footer>
+  </section>
+</body>
+</html>
