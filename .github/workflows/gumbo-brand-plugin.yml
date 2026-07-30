@@ -1,0 +1,49 @@
+name: Gumbo brand plugin
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/gumbo-brand
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: plugins/gumbo-brand/package-lock.json
+
+      - name: Install plugin dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify plugin and starters
+        run: npm test
+
+      - name: Generate acceptance fixtures
+        run: |
+          mkdir -p "$RUNNER_TEMP/gumbo-brand"
+          node scripts/create-html.mjs --type document --out "$RUNNER_TEMP/gumbo-brand/document.html"
+          node scripts/create-html.mjs --type deck --out "$RUNNER_TEMP/gumbo-brand/deck.html"
+          node scripts/create-html.mjs --type web --out "$RUNNER_TEMP/gumbo-brand/web.html"
+          node scripts/create-html.mjs --type social --out "$RUNNER_TEMP/gumbo-brand/social.html"
+
+      - name: Run rendered brand audits
+        run: |
+          node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/document.html" "$RUNNER_TEMP/gumbo-brand/document.png" --width 816 --height 1056
+          node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/deck.html" "$RUNNER_TEMP/gumbo-brand/deck.png" --size slide --format png
+          node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/web.html" "$RUNNER_TEMP/gumbo-brand/web.png" --width 1440 --height 900
+          node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/social.html" "$RUNNER_TEMP/gumbo-brand/social.png" --size linkedin --format png
