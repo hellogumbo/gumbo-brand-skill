@@ -1,26 +1,22 @@
----
-name: foundations
-description: Apply Gumbo's core brand identity, design philosophy, colors, typography, iconography, CSS tokens, component patterns, and voice to any Gumbo-related output. Use whenever the user mentions Gumbo, asks for something on-brand, or creates a deliverable for Gumbo or its clients. Assume every Gumbo-related output needs this skill. Always use Pika icons; never substitute another icon library.
----
-
 # Gumbo Brand System
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/foundations/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
+Use the plugin root already resolved and verified by `../SKILL.md`. This is internal reference guidance, not a separately discoverable skill.
 
 Gumbo is an AI-first product and engineering studio. The brand communicates forward momentum, technical confidence, and human craft. Think: a team that ships fast, explains things plainly, and doesn't hide behind jargon.
 
-This skill exists so that every output Claude produces for Gumbo — whether it's a pitch deck, a client report, an HTML prototype, a social post, or an internal doc — feels like it came from the same studio. Consistency is the goal, rigidity is not. Use judgment.
+This reference exists so that every Gumbo output — whether it's a pitch deck, a client report, an HTML prototype, a social post, or an internal doc — feels like it came from the same studio. Consistency is the goal, rigidity is not. Use judgment.
 
-## Companion skills
+## Contents
 
-Load the matching companion skill for the deliverable:
-
-- Use the companion whose frontmatter name is `layouts` for visual composition, spacing, layout blocks, tables, or charts.
-- Use `visual-assets` for photography, image generation, halftone treatments, or logo usage.
-- Use `presentations` for decks, slides, or PPTX output.
-- Use `artifacts` for documents, proposals, PDFs, email, infographics, HTML, web, social, React, or export workflows.
-
-Prefer companions qualified with `gumbo-brand:`. If only a plain name is shown, confirm its `SKILL.md` lives under this same plugin root. Ignore loose `~/.agents/skills/mcp-*` copies because they do not include the required shared resources.
+- [Design philosophy](#design-philosophy)
+- [Anti-patterns](#what-gumbo-doesnt-look-like-anti-patterns)
+- [Artboard sizes](#artboard-sizes)
+- [Colors](#colors)
+- [Typography](#typography)
+- [Icons](#icons--pika-icons-non-negotiable)
+- [Voice and tone](#voice--tone-light-guidance)
+- [CSS custom properties](#css-custom-properties-template)
+- [Component patterns](#component-patterns)
 
 ## Design Philosophy
 
@@ -46,6 +42,9 @@ This section matters as much as the design specs. AI-generated layouts tend towa
 - **Don't use generic stock photography.** Either use the halftone-treated brand images, a solid color, or nothing. An untreated stock photo instantly breaks the brand.
 - **Don't over-use the brand blue.** It's powerful because it's used with restraint on clean layouts and fully committed on immersive ones. A page shouldn't be littered with blue accents.
 - **Don't use rounded/bubbly buttons or components.** Keep border radii tight (4-8px for most elements). Rounded-full is for stat badges only, not for buttons or cards.
+- **Don't use all-caps display text.** Write headings and labels in sentence case. Reserve uppercase for established acronyms.
+- **Don't prefix labels with decorative slashes.** Text such as `// Our north star` looks improvised and is not part of the brand system.
+- **Don't tighten tracking.** Keep visible text at normal tracking. Negative letter-spacing makes large type feel crowded and breaks at smaller canvases.
 
 ## Artboard Sizes
 
@@ -210,15 +209,15 @@ Use these combinations for accessible text. All meet WCAG AA (4.5:1 for normal t
 
 - **Weight**: Regular (400) — not Bold. The font carries enough character at regular weight.
 - **Availability**: Freely available on [Google Fonts](https://fonts.google.com/specimen/Space+Grotesk). Always load it for any HTML/web output.
-- **Tracking**: Scales proportionally with size. The larger the text, the tighter it can be pulled. At body-sized headings the tracking should be normal. Never use tight tracking on small text.
-- **Line height**: 1.0 for display headings (single-line), 1.1-1.2 for multi-line.
+- **Tracking**: Normal (`letter-spacing: 0`) at every size.
+- **Line height**: At least 1.14 for multiline display headings and 1.14-1.2 for other multiline headings.
 - **Fallback**: `'Space Grotesk', 'Inter', system-ui, sans-serif`
 
 ### Body: SF Pro
 
 - **Weight**: Regular (400) for body, Medium (500) for labels and emphasis.
 - **Line height**: 1.5-1.6 for readability.
-- **Tracking**: Slightly negative at larger sizes (20px+), normal at standard body sizes.
+- **Tracking**: Normal (`letter-spacing: 0`) at every size.
 - **Fallback**: `'SF Pro Text', 'SF Pro', 'Inter', system-ui, sans-serif`
 
 SF Pro is an Apple system font. For PDF/PNG export via Puppeteer on macOS, it renders fine. For browser-viewed HTML, Inter is the cross-platform fallback. See "HTML Artifacts" for the full font strategy by output context.
@@ -235,41 +234,50 @@ Typography must adapt to the canvas. The skill groups artboards into four tiers.
 
 **How to pick a size within a role**: When a role shows two values (e.g., "72 / 64"), the first is the default. Use the second when the heading runs long (more than ~6 words) or when content density is high and the block needs to share space. If in doubt, use the larger value.
 
+**Typography guardrails**:
+
+- Write headings, labels, and body copy in sentence case. Uppercase is only for established acronyms.
+- Do not add decorative slash prefixes.
+- Use `letter-spacing: 0` for every visible phrase.
+- Use line-height of at least 1.14 for multiline headings and 1.35 for body text.
+- Keep headings to three lines or fewer.
+- Leave at least 32px between text columns and at least 16px between a label and its heading.
+
 **Tier 1 — Large canvas** (presentations 1920×1080, web desktop 1440w):
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Display / H1   | Space Grotesk     | Regular | 72 / 64px | -3%      | 1.0         |
-| H2             | Space Grotesk     | Regular | 52 / 48px | -2%      | 1.05        |
-| H3             | Space Grotesk     | Regular | 34 / 32px | -1%      | 1.2         |
+| Display / H1   | Space Grotesk     | Regular | 72 / 64px | 0        | 1.14        |
+| H2             | Space Grotesk     | Regular | 52 / 48px | 0        | 1.14        |
+| H3             | Space Grotesk     | Regular | 34 / 32px | 0        | 1.2         |
 | H4             | Space Grotesk     | Regular | 24px     | 0        | 1.3         |
-| Body Large     | SF Pro            | Regular | 24 / 22px | -0.02em  | 1.5         |
+| Body Large     | SF Pro            | Regular | 24 / 22px | 0        | 1.5         |
 | Body           | SF Pro            | Regular | 17px     | 0        | 1.6         |
 | Label          | SF Pro            | Medium  | 13px     | 0        | 1.4         |
-| Stat           | SF Compact Rounded| Medium  | 40 / 32px | -1%      | 1.0         |
+| Stat           | SF Compact Rounded| Medium  | 40 / 32px | 0        | 1.1         |
 
 **Tier 2 — Medium canvas** (Letter 816×1056, A4 595×842, social landscape 1200×675, LinkedIn 1200×627, OG 1200×630):
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Title / H1     | Space Grotesk     | Regular | 32 / 28px | -1.5%    | 1.1         |
-| H2             | Space Grotesk     | Regular | 22 / 20px | -0.5%    | 1.15        |
+| Title / H1     | Space Grotesk     | Regular | 32 / 28px | 0        | 1.16        |
+| H2             | Space Grotesk     | Regular | 22 / 20px | 0        | 1.16        |
 | H3             | Space Grotesk     | Regular | 15 / 14px | 0        | 1.2         |
 | H4             | Space Grotesk     | Regular | 12px     | 0        | 1.3         |
 | Body           | SF Pro            | Regular | 11 / 10px | 0        | 1.5         |
 | Body Small     | SF Pro            | Regular | 9px      | 0        | 1.5         |
-| Caption        | SF Pro            | Medium  | 9px      | 0.02em   | 1.4         |
-| Stat           | SF Compact Rounded| Semibold| 20 / 16px | -0.5%    | 1.0         |
+| Caption        | SF Pro            | Medium  | 9px      | 0        | 1.4         |
+| Stat           | SF Compact Rounded| Semibold| 20 / 16px | 0        | 1.1         |
 
 **Tier 3 — Small/square canvas** (Instagram 1080×1080, web mobile 390w):
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Headline       | Space Grotesk     | Regular | 44 / 36px | -2%      | 1.0         |
-| Subhead        | Space Grotesk     | Regular | 22 / 20px | -1%      | 1.15        |
+| Headline       | Space Grotesk     | Regular | 44 / 36px | 0        | 1.14        |
+| Subhead        | Space Grotesk     | Regular | 22 / 20px | 0        | 1.15        |
 | Body           | SF Pro            | Regular | 15 / 14px | 0        | 1.5         |
 | Caption        | SF Pro            | Medium  | 12 / 11px | 0        | 1.4         |
-| Stat           | SF Compact Rounded| Semibold| 44 / 32px | -1%      | 1.0         |
+| Stat           | SF Compact Rounded| Semibold| 44 / 32px | 0        | 1.1         |
 
 **Tier 4 — Tall/narrow canvas** (Instagram story 1080×1920, Twitter header 1500×500):
 
@@ -277,15 +285,15 @@ Stories and banners are special — they're either very tall or very wide, so ty
 
 | Role           | Font              | Weight  | Size     | Tracking | Line Height |
 |----------------|-------------------|---------|----------|----------|-------------|
-| Headline       | Space Grotesk     | Regular | 56 / 48px | -2%      | 1.0         |
+| Headline       | Space Grotesk     | Regular | 56 / 48px | 0        | 1.14        |
 | Supporting     | SF Pro            | Regular | 20 / 18px | 0        | 1.4         |
-| Stat           | SF Compact Rounded| Semibold| 64 / 48px | -1%      | 1.0         |
+| Stat           | SF Compact Rounded| Semibold| 64 / 48px | 0        | 1.1         |
 
 ## Icons — Pika Icons (Non-negotiable)
 
 **Always use Pika icons. Never substitute with Lucide, Heroicons, Font Awesome, or any other library.**
 
-Pika icons are bundled in `${CLAUDE_PLUGIN_ROOT}/assets/icons/` as SVGs. Designed on a 24px grid with 2px stroke weight. Default to the **stroke** style.
+Pika icons are bundled in `<plugin-root>/assets/icons/` as SVGs. Designed on a 24px grid with 2px stroke weight. Default to the **stroke** style.
 
 **Stroke-width by tier**: The default `stroke-width="2"` looks chunky at smaller render sizes. Adjust per tier:
 - **Tier 1** (48px icons): `stroke-width="2"` (default)
@@ -298,7 +306,7 @@ Available styles: `stroke` (default), `solid`, `duo-stroke`, `duo-solid`, `contr
 
 ### Using Pika Icons
 
-**HTML/React:** Inline the SVG from `${CLAUDE_PLUGIN_ROOT}/assets/icons/stroke/[category]/[name].svg`.
+**HTML/React:** Inline the SVG from `<plugin-root>/assets/icons/stroke/[category]/[name].svg`.
 
 **Presentations:** Embed as SVG or PNG at 48-96px.
 

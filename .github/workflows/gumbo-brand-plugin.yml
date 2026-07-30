@@ -47,3 +47,11 @@ jobs:
           node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/deck.html" "$RUNNER_TEMP/gumbo-brand/deck.png" --size slide --format png
           node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/web.html" "$RUNNER_TEMP/gumbo-brand/web.png" --width 1440 --height 900
           node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/social.html" "$RUNNER_TEMP/gumbo-brand/social.png" --size linkedin --format png
+
+      - name: Test dependency-free system Chrome fallback
+        env:
+          GUMBO_RENDERER: system
+        run: node scripts/html-export.mjs "$RUNNER_TEMP/gumbo-brand/document.html" "$RUNNER_TEMP/gumbo-brand/document-system.png" --width 816 --height 1056
+
+      - name: Verify alignment audit failures
+        run: npm run audit:regression

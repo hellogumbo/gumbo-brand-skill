@@ -44,6 +44,7 @@ import { resolve, extname, dirname, basename, join } from "path";
 import { pathToFileURL } from "url";
 import { createRequire } from "module";
 import { auditGumboPage } from "./lib/brand-audit.mjs";
+import { launchSystemChromium } from "./lib/system-chromium.mjs";
 
 const localRequire = createRequire(import.meta.url);
 const dependencyRequire = process.env.GUMBO_NODE_MODULES
@@ -142,14 +143,24 @@ async function main() {
   let browser;
   let page;
   let renderer;
-  try {
-    const puppeteerModule = dependencyRequire("puppeteer");
-    const puppeteer = puppeteerModule.default || puppeteerModule;
-    browser = await puppeteer.launch({ headless: true });
-    page = await browser.newPage();
-    await page.setViewport({ width, height, deviceScaleFactor: 2 });
-    renderer = "Puppeteer";
-  } catch (puppeteerError) {
+  let puppeteerError = new Error("Puppeteer skipped");
+  let playwrightError = new Error("Playwright skipped");
+  const forceSystemChromium = process.env.GUMBO_RENDERER === "system";
+
+  if (!forceSystemChromium) {
+    try {
+      const puppeteerModule = dependencyRequire("puppeteer");
+      const puppeteer = puppeteerModule.default || puppeteerModule;
+      browser = await puppeteer.launch({ headless: true });
+      page = await browser.newPage();
+      await page.setViewport({ width, height, deviceScaleFactor: 2 });
+      renderer = "Puppeteer";
+    } catch (error) {
+      puppeteerError = error;
+    }
+  }
+
+  if (!browser && !forceSystemChromium) {
     try {
       const { chromium } = dependencyRequire("playwright");
       const systemChromium = findSystemChromium();
@@ -162,12 +173,30 @@ async function main() {
         deviceScaleFactor: 2,
       });
       renderer = "Playwright";
-    } catch (playwrightError) {
+    } catch (error) {
+      playwrightError = error;
+    }
+  }
+
+  if (!browser) {
+    const systemChromium = findSystemChromium();
+    try {
+      if (!systemChromium) throw new Error("No supported system Chromium executable was found");
+      const launched = await launchSystemChromium(systemChromium, {
+        width,
+        height,
+        deviceScaleFactor: 2,
+      });
+      browser = launched.browser;
+      page = launched.page;
+      renderer = "System Chromium";
+    } catch (systemChromiumError) {
       console.error("A Chromium renderer is required.");
-      console.error("Install Puppeteer with: npm install puppeteer");
-      console.error("Or install Playwright with: npm install playwright");
+      console.error("Install Google Chrome, or install this plugin's optional Playwright dependency.");
+      console.error("Install dependency: npm install --prefix <plugin-root>");
       console.error(`Puppeteer: ${puppeteerError.message}`);
       console.error(`Playwright: ${playwrightError.message}`);
+      console.error(`System Chromium: ${systemChromiumError.message}`);
       process.exit(1);
     }
   }

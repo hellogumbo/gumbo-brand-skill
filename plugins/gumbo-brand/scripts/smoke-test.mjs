@@ -31,8 +31,32 @@ function collectFiles(directory, extensions = new Set([".css", ".html", ".md"]))
   return files;
 }
 
+function declarationBlocks(source) {
+  return [
+    ...[...source.matchAll(/\{([^{}]+)\}/g)].map((match) => match[1]),
+    ...[...source.matchAll(/style\s*=\s*"([^"]+)"/g)].map((match) => match[1]),
+  ];
+}
+
 try {
   console.log(run("verify-install.mjs"));
+
+  const skillSource = readFileSync(join(pluginRoot, "skills/gumbo-brand/SKILL.md"), "utf8");
+  for (const referenceName of [
+    "foundations.md",
+    "layouts.md",
+    "visual-assets.md",
+    "presentations.md",
+    "artifacts.md",
+    "resources.md",
+  ]) {
+    if (!skillSource.includes(referenceName)) {
+      throw new Error(`gumbo-brand skill does not route to references/${referenceName}`);
+    }
+  }
+  if (/companion skill|gumbo-brand:(?:layouts|artifacts|foundations|presentations|visual-assets)/i.test(skillSource)) {
+    throw new Error("gumbo-brand skill still routes to independently discoverable companion skills");
+  }
 
   const governedFiles = [
     join(pluginRoot, "assets/theme/gumbo.css"),
@@ -50,6 +74,20 @@ try {
     if (/>\s*\/\/|\/\/\s+[A-Z][A-Z]/.test(source)) {
       throw new Error(`${relativePath}: decorative slash labels are forbidden`);
     }
+    for (const declarations of declarationBlocks(source)) {
+      const fontSize = Number.parseFloat(declarations.match(/font-size\s*:\s*([\d.]+)px/i)?.[1]);
+      const lineHeight = Number.parseFloat(declarations.match(/line-height\s*:\s*([\d.]+)/i)?.[1]);
+      if (
+        Number.isFinite(fontSize)
+        && fontSize >= 32
+        && Number.isFinite(lineHeight)
+        && lineHeight < 1.14
+      ) {
+        throw new Error(
+          `${relativePath}: ${fontSize}px display text uses crowded ${lineHeight} line-height; minimum is 1.14`,
+        );
+      }
+    }
   }
 
   for (const type of ["document", "deck", "web", "social"]) {
@@ -66,7 +104,7 @@ try {
     if (/text-transform\s*:\s*uppercase/i.test(html)) throw new Error(`${type}: uppercase transform leaked into output`);
     if (/letter-spacing\s*:\s*-(?:\d|\.)/i.test(html)) throw new Error(`${type}: negative tracking leaked into output`);
     if (/>\s*\/\//.test(html)) throw new Error(`${type}: decorative slash label leaked into output`);
-    if ((type === "deck" || type === "web" || type === "social") && !html.includes("data:image/")) {
+    if (!html.includes("data:image/")) {
       throw new Error(`${type}: bundled photography was not embedded`);
     }
   }

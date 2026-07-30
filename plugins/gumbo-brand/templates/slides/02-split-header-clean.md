@@ -47,7 +47,7 @@ Light slide with a two-column header zone (title left, body right) above a large
       font-weight: 400;
       font-size: 64px;
       letter-spacing: 0;
-      line-height: 1;
+      line-height: 1.14;
       color: #252525;
     ">
       Section Title

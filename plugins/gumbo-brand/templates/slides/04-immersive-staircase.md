@@ -78,7 +78,7 @@ Full-bleed halftone image background with two equal columns separated by a white
         font-weight: 400;
         font-size: 64px;
         letter-spacing: 0;
-        line-height: 1;
+        line-height: 1.14;
         color: white;
       ">
         Left Column Heading
@@ -118,7 +118,7 @@ Full-bleed halftone image background with two equal columns separated by a white
         font-weight: 400;
         font-size: 64px;
         letter-spacing: 0;
-        line-height: 1;
+        line-height: 1.14;
         color: white;
       ">
         Right Column Heading

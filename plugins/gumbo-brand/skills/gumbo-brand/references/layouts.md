@@ -1,13 +1,13 @@
----
-name: layouts
-description: Compose Gumbo-branded visual layouts using the spacing system, vertical rhythm, reusable layout blocks, data tables, charts, and stat patterns. Use for any Gumbo deck, document, infographic, social image, webpage, dashboard, or prototype that needs visual structure. Apply the foundations companion alongside this skill.
----
-
 # Gumbo Layout System
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/layouts/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
+Use the plugin root already resolved and verified by `../SKILL.md`. Apply `foundations.md` alongside this reference for colors, typography, artboard tiers, icons, imagery, and logo rules.
 
-Apply the companion whose frontmatter name is `foundations` alongside this skill for colors, typography, artboard tiers, icons, imagery, and logo rules.
+## Contents
+
+- [Spacing system](#spacing-system)
+- [Vertical rhythm](#vertical-rhythm--block-spacing)
+- [Layout blocks](#layout-blocks)
+- [Data tables, charts, and graphs](#data-tables-charts--graphs)
 
 ## Spacing System
 
@@ -89,7 +89,20 @@ The signature Gumbo pattern. Heading anchored left, body copy flowing right. A t
 | Divider below | `1px solid #e8e8e8`, full width, `16px` below content | `1px solid #e8e8e8`, full width, `12px` below | `1px solid #e8e8e8`, full width, `8px` below |
 | Heading size | Display / H1 from tier scale | Title / H1 from tier scale | Headline from tier scale |
 | Body size | Body Large from tier scale | Body from tier scale | Body from tier scale |
-| Vertical alignment | Heading baseline aligns with first line of body copy | Same | Top-aligned |
+| Label-to-heading gap | `16px` minimum | `16px` minimum | `12px` minimum |
+| Vertical alignment | Body copy top aligns with heading top, within `4px` | Same | Same |
+
+Use a two-row grid when the split header includes a context label. Keep the label in the first row and place the heading and body in the second row:
+
+```html
+<section class="split-header split-header--labeled">
+  <p class="overline split-header__label">What changed</p>
+  <h2 class="split-header__heading">A clear section heading.</h2>
+  <p class="split-header__copy">Body copy starts level with the heading, not the label.</p>
+</section>
+```
+
+Do not wrap the label and heading in a nested left-column container. That makes `align-items: start` align the body copy with the label and leaves the body visibly too high.
 
 ### Block: Icon Strip
 
