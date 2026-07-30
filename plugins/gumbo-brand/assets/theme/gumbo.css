@@ -118,9 +118,8 @@ a {
   color: var(--gumbo-muted);
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   line-height: 1.4;
-  text-transform: uppercase;
 }
 
 .split-header {
@@ -132,15 +131,15 @@ a {
 
 .split-header__heading {
   font-size: 52px;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  letter-spacing: 0;
+  line-height: 1.1;
 }
 
 .split-header__copy {
   max-width: 760px;
   color: var(--gumbo-black-90);
   font-size: 22px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   line-height: 1.5;
 }
 
@@ -357,17 +356,17 @@ a {
 .web-hero__content {
   display: grid;
   min-height: 580px;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.4fr 0.6fr;
   gap: 80px;
   align-items: center;
 }
 
 .web-hero h1 {
-  max-width: 780px;
+  max-width: 860px;
   margin: 20px 0 28px;
-  font-size: clamp(64px, 7vw, 100px);
-  letter-spacing: -0.04em;
-  line-height: 0.96;
+  font-size: clamp(64px, 6.5vw, 92px);
+  letter-spacing: 0;
+  line-height: 1.08;
 }
 
 .web-hero p {
@@ -396,8 +395,8 @@ a {
 .social-copy h1 {
   max-width: 650px;
   font-size: 64px;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  letter-spacing: 0;
+  line-height: 1.08;
 }
 
 .social-image {

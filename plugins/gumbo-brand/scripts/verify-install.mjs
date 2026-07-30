@@ -42,6 +42,7 @@ const requiredFiles = [
   "scripts/create-html.mjs",
   "scripts/html-edit-server.mjs",
   "scripts/html-export.mjs",
+  "scripts/lib/brand-audit.mjs",
 ];
 
 const errors = [];

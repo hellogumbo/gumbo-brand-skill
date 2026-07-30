@@ -46,7 +46,7 @@ Light slide with a two-column header zone (title left, body right) above a large
       font-family: var(--font-heading);
       font-weight: 400;
       font-size: 64px;
-      letter-spacing: -2.56px;
+      letter-spacing: 0;
       line-height: 1;
       color: #252525;
     ">
@@ -59,7 +59,7 @@ Light slide with a two-column header zone (title left, body right) above a large
       font-family: var(--font-body);
       font-weight: 400;
       font-size: 24px;
-      letter-spacing: -0.48px;
+      letter-spacing: 0;
       line-height: 1.6;
       color: #252525;
     ">

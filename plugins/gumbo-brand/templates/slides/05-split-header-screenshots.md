@@ -45,7 +45,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
       font-family: var(--font-heading);
       font-weight: 400;
       font-size: 64px;
-      letter-spacing: -2.56px;
+      letter-spacing: 0;
       line-height: 1;
       color: var(--gumbo-black-100);
     ">
@@ -60,7 +60,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
       font-family: var(--font-body);
       font-weight: 400;
       font-size: 24px;
-      letter-spacing: -0.48px;
+      letter-spacing: 0;
       line-height: 1.6;
       color: var(--gumbo-black-100);
     ">
@@ -133,7 +133,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 23px;
-            letter-spacing: -0.92px;
+            letter-spacing: 0;
             line-height: 56px;
             color: white;
           ">01</div>
@@ -154,7 +154,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 38px;
-            letter-spacing: -1.52px;
+            letter-spacing: 0;
             line-height: 56px;
             color: white;
           ">
@@ -164,7 +164,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             line-height: 1.6;
             color: white;
             opacity: 0.8;
@@ -195,7 +195,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 23px;
-            letter-spacing: -0.92px;
+            letter-spacing: 0;
             line-height: 56px;
             color: white;
           ">02</div>
@@ -216,7 +216,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 38px;
-            letter-spacing: -1.52px;
+            letter-spacing: 0;
             line-height: 56px;
             color: white;
           ">
@@ -226,7 +226,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             line-height: 1.6;
             color: white;
             opacity: 0.8;
@@ -257,7 +257,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 23px;
-            letter-spacing: -0.92px;
+            letter-spacing: 0;
             line-height: 56px;
             color: white;
           ">03</div>
@@ -278,7 +278,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-heading);
             font-weight: 400;
             font-size: 38px;
-            letter-spacing: -1.52px;
+            letter-spacing: 0;
             line-height: 56px;
             color: white;
           ">
@@ -288,7 +288,7 @@ Two-zone layout. Zone 1 (top 316px) is a light split-header with title and body 
             font-family: var(--font-body);
             font-weight: 400;
             font-size: 24px;
-            letter-spacing: -0.48px;
+            letter-spacing: 0;
             line-height: 1.6;
             color: white;
             opacity: 0.8;

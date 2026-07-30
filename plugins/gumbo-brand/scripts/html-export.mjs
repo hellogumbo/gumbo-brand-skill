@@ -43,6 +43,7 @@ import { existsSync, readFileSync } from "fs";
 import { resolve, extname, dirname, basename, join } from "path";
 import { pathToFileURL } from "url";
 import { createRequire } from "module";
+import { auditGumboPage } from "./lib/brand-audit.mjs";
 
 const localRequire = createRequire(import.meta.url);
 const dependencyRequire = process.env.GUMBO_NODE_MODULES
@@ -179,6 +180,25 @@ async function main() {
   await page.evaluate(() => {
     document.body.classList.remove("preview");
   });
+  await page.evaluate(async () => {
+    if (document.fonts?.ready) await document.fonts.ready;
+    await Promise.all([...document.images].map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolveImage) => {
+        image.addEventListener("load", resolveImage, { once: true });
+        image.addEventListener("error", resolveImage, { once: true });
+      });
+    }));
+  });
+
+  const auditIssues = await auditGumboPage(page);
+  if (auditIssues.length > 0) {
+    await browser.close();
+    console.error(`Gumbo brand audit failed with ${auditIssues.length} issue${auditIssues.length === 1 ? "" : "s"}:`);
+    for (const issue of auditIssues) console.error(`- ${issue}`);
+    console.error("Fix the HTML and export again. No artifact was written.");
+    process.exit(1);
+  }
 
   // Check for multiple .page divs
   const pageCount = await page.evaluate(() => {
@@ -195,7 +215,7 @@ async function main() {
       printBackground: true,
       margin: { top: 0, right: 0, bottom: 0, left: 0 },
     });
-    console.log(`PDF saved: ${outputPath} (${width}x${height}, ${pageCount} page${pageCount > 1 ? "s" : ""}, ${renderer})`);
+    console.log(`PDF saved: ${outputPath} (${width}x${height}, ${pageCount} page${pageCount > 1 ? "s" : ""}, ${renderer}, audit passed)`);
   } else {
     // For PNG: multiple .page divs produce numbered files
     if (pageCount <= 1) {
@@ -204,7 +224,7 @@ async function main() {
         type: "png",
         clip: { x: 0, y: 0, width, height },
       });
-      console.log(`PNG saved: ${outputPath} (${width}x${height}, ${renderer})`);
+      console.log(`PNG saved: ${outputPath} (${width}x${height}, ${renderer}, audit passed)`);
     } else {
       const ext = extname(outputPath);
       const base = basename(outputPath, ext);
@@ -225,7 +245,7 @@ async function main() {
           type: "png",
           clip: { x: pageEl.x, y: pageEl.y, width: pageEl.width, height: pageEl.height },
         });
-        console.log(`PNG saved: ${filePath} (${pageEl.width}x${pageEl.height})`);
+        console.log(`PNG saved: ${filePath} (${pageEl.width}x${pageEl.height}, audit passed)`);
       }
     }
   }

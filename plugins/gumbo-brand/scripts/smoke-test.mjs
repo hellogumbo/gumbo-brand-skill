@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,8 +21,36 @@ function run(script, args = []) {
   return result.stdout.trim();
 }
 
+function collectFiles(directory, extensions = new Set([".css", ".html", ".md"])) {
+  const files = [];
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const entryPath = join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...collectFiles(entryPath, extensions));
+    else if (extensions.has(entry.name.slice(entry.name.lastIndexOf(".")))) files.push(entryPath);
+  }
+  return files;
+}
+
 try {
   console.log(run("verify-install.mjs"));
+
+  const governedFiles = [
+    join(pluginRoot, "assets/theme/gumbo.css"),
+    ...collectFiles(join(pluginRoot, "templates")),
+  ];
+  for (const filePath of governedFiles) {
+    const source = readFileSync(filePath, "utf8");
+    const relativePath = filePath.slice(pluginRoot.length + 1);
+    if (/text-transform\s*:\s*uppercase/i.test(source)) {
+      throw new Error(`${relativePath}: CSS uppercase transforms are forbidden`);
+    }
+    if (/letter-spacing\s*:\s*-(?:\d|\.)/i.test(source)) {
+      throw new Error(`${relativePath}: negative letter spacing is forbidden`);
+    }
+    if (/>\s*\/\/|\/\/\s+[A-Z][A-Z]/.test(source)) {
+      throw new Error(`${relativePath}: decorative slash labels are forbidden`);
+    }
+  }
 
   for (const type of ["document", "deck", "web", "social"]) {
     const outputPath = join(temporaryRoot, `${type}.html`);
@@ -35,6 +63,9 @@ try {
     if (html.includes("{{")) throw new Error(`${type}: unresolved template placeholder`);
     if (!html.includes("<svg")) throw new Error(`${type}: official SVG wordmark was not inlined`);
     if (!html.includes("--gumbo-blue: #2563eb")) throw new Error(`${type}: canonical theme was not inlined`);
+    if (/text-transform\s*:\s*uppercase/i.test(html)) throw new Error(`${type}: uppercase transform leaked into output`);
+    if (/letter-spacing\s*:\s*-(?:\d|\.)/i.test(html)) throw new Error(`${type}: negative tracking leaked into output`);
+    if (/>\s*\/\//.test(html)) throw new Error(`${type}: decorative slash label leaked into output`);
     if ((type === "deck" || type === "web" || type === "social") && !html.includes("data:image/")) {
       throw new Error(`${type}: bundled photography was not embedded`);
     }

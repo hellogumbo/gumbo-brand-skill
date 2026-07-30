@@ -41,9 +41,9 @@ Almost every Gumbo slide follows the same two-zone structure:
 
 Not every slide uses both zones — immersive slides (like the opener) fill the entire canvas. But the split-header + content-stage pattern is the backbone.
 
-### The `// Section Label` Overline
+### Context labels
 
-Many slides use a double-slash overline above the heading: `// GUMBO AI AUDIT SYSTEM`, `// Our Core Philosophy`, `CASESTUDY // DERMSQUARED`. This is SF Pro Medium, `11-13px`, `#727272` on clean slides or `rgba(255,255,255,0.6)` on immersive, uppercase, `0.08em` tracking. It sits `12px` above the heading.
+Use a context label only when it adds information the heading does not. Write it in sentence case without decorative punctuation, for example `Gumbo AI audit system`, `Our core philosophy`, or `DermSquared case study`. Use SF Pro Medium at `11-13px`, `#727272` on clean slides or `rgba(255,255,255,0.6)` on immersive slides, normal tracking, and a minimum `16px` gap above the heading.
 
 ### Slide Types (from the reference deck)
 
@@ -63,7 +63,7 @@ Zone 1 is the split-header on white. Zone 2 is a full-bleed immersive blue/halft
 Zone 1 is the split-header. Zone 2 has product UI screenshots — raw panels (not device mockups), slightly overlapping, with subtle `1px` borders and `8px` radius. Screenshots can bleed off the right edge of the slide. Left side of Zone 2 may contain body text explaining the work.
 
 **Type 6: Case Study**
-Left ~35% of the slide, top-to-bottom: overline (`CASESTUDY // CLIENT NAME`, uppercase, `13px`, `#727272`), then a large heading (Space Grotesk, `~56px`) with an inline stat badge (e.g., `↓50%` in a `#2563eb` pill, SF Compact Rounded), then a subtitle line, then 2-3 body paragraphs. Right ~60% of the slide: product screenshots stacked/overlapping, bleeding off the right edge. No formal content stage — the screenshots compose freely.
+Left ~35% of the slide, top-to-bottom: an optional sentence-case context label (`Client name case study`, `13px`, `#727272`), then a large heading (Space Grotesk, `~56px`) with an inline stat badge (e.g., `↓50%` in a `#2563eb` pill, SF Compact Rounded), then a subtitle line, then 2-3 body paragraphs. Right ~60% of the slide: product screenshots stacked/overlapping, bleeding off the right edge. No formal content stage — the screenshots compose freely.
 
 **Type 7: Philosophy / Deep-Dive**
 Left ~35% for a section label overline + large heading + subtitle + extended body copy (3+ paragraphs — this is the one slide type where longer text is okay). Right ~60% for a product screenshot composite. No content stage container. The slide feels more editorial.

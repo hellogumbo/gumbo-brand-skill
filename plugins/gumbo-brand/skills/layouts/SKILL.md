@@ -113,7 +113,7 @@ Two case studies side by side (or stacked on Tier 3 / small canvases). In presen
 | Property | Tier 1 | Tier 2 |
 |----------|--------|--------|
 | Layout | 2 columns, 48px gutter | 2 columns, 24px gutter (or stacked) |
-| Overline | `CASESTUDY // CLIENT NAME` format. SF Pro Medium, 13px, `#727272`, uppercase, 0.08em tracking | SF Pro Medium, 9px, `#727272`, uppercase |
+| Context label | Optional `Client name case study` format. SF Pro Medium, 13px, `#727272`, sentence case, normal tracking | SF Pro Medium, 9px, `#727272`, sentence case, normal tracking |
 | Heading | Space Grotesk, H3 from tier | Space Grotesk, H3 from tier |
 | Body | SF Pro, Body from tier, 2-3 sentences max | Same |
 | Stat callout | SF Compact Rounded inside a `#2563eb` badge, white text, `border-radius: 9999px`, `8px 16px` padding | Same pattern, scaled to tier |

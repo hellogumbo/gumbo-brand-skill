@@ -33,6 +33,5 @@ Use SVGs from `assets/icons/stroke/` by default. Use `contrast/` only for larger
 - `scripts/verify-install.mjs` — fail fast when the installed plugin is incomplete.
 - `scripts/create-html.mjs` — create a self-contained deliverable from a starter.
 - `scripts/html-edit-server.mjs` — inspect, edit, save, and export locally.
-- `scripts/html-export.mjs` — render PDF or PNG with Puppeteer.
+- `scripts/html-export.mjs` — audit the rendered layout, then render PDF or PNG with Puppeteer or Playwright.
 - `scripts/smoke-test.mjs` — exercise verification and all four starters.
-

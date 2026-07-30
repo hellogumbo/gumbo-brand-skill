@@ -79,6 +79,8 @@ node "<plugin-root>/scripts/html-export.mjs" \
   --size letter
 ```
 
+Export runs a mandatory brand audit before writing the file. It rejects all-caps phrases, decorative slash labels, non-zero tracking, crowded line height, clipped or out-of-canvas text, overlapping text blocks, and missing images. Fix every reported issue and export again; do not bypass the audit.
+
 Render a PNG and inspect it after every structural or visual change. Retain the HTML beside the exported deliverable as its editable source.
 
 ## Resource map
