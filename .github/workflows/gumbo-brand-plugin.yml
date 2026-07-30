@@ -33,6 +33,9 @@ jobs:
       - name: Verify plugin and starters
         run: npm test
 
+      - name: Verify Claude and Codex distribution
+        run: node ../../scripts/verify-distribution.mjs
+
       - name: Generate acceptance fixtures
         run: |
           mkdir -p "$RUNNER_TEMP/gumbo-brand"

@@ -11,16 +11,24 @@ Treat the installed plugin root as the source of truth. Do not recreate logos, a
 
 Resolve the plugin root before designing:
 
-- Claude Code: use `${CLAUDE_PLUGIN_ROOT}`.
+- Claude Code: use `${CLAUDE_PLUGIN_ROOT}`. Run the verification command exactly as shown below before inspecting the project folder.
 - Codex: resolve this `SKILL.md`, then go up from `skills/gumbo-brand/` to the plugin root.
 
-Run:
+Claude Code:
 
 ```bash
-node "<plugin-root>/scripts/verify-install.mjs"
+node "${CLAUDE_PLUGIN_ROOT}/scripts/verify-install.mjs"
 ```
 
-Stop if verification fails. Report that the complete `plugins/gumbo-brand` directory must be installed. Never silently continue with prose-only styling.
+Codex:
+
+```bash
+node "<resolved-plugin-root>/scripts/verify-install.mjs"
+```
+
+The current working directory is only the output destination. Never search it for Gumbo logos, photography, icons, themes, or templates. Never ask the user to upload official brand assets before verification.
+
+Stop if verification fails or `${CLAUDE_PLUGIN_ROOT}` is unavailable. Report that the complete `plugins/gumbo-brand` directory must be installed as a plugin. Never silently continue with prose-only styling or a placeholder logo.
 
 ## Route the deliverable
 
@@ -40,8 +48,18 @@ These files are supporting instructions inside this skill, not independent skill
 
 Prefer the deterministic scaffolder:
 
+Claude Code:
+
 ```bash
-node "<plugin-root>/scripts/create-html.mjs" \
+node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" \
+  --type document \
+  --out ./gumbo-document.html
+```
+
+Codex:
+
+```bash
+node "<resolved-plugin-root>/scripts/create-html.mjs" \
   --type document \
   --out ./gumbo-document.html
 ```
@@ -63,7 +81,7 @@ Edit the generated source rather than rebuilding the structure from scratch. Use
 For review/edit mode:
 
 ```bash
-node "<plugin-root>/scripts/html-edit-server.mjs" \
+node "${CLAUDE_PLUGIN_ROOT}/scripts/html-edit-server.mjs" \
   ./gumbo-document.html \
   --out ./gumbo-document.html \
   --pdf ./gumbo-document.pdf \
@@ -73,11 +91,13 @@ node "<plugin-root>/scripts/html-edit-server.mjs" \
 For direct export:
 
 ```bash
-node "<plugin-root>/scripts/html-export.mjs" \
+node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" \
   ./gumbo-document.html \
   ./gumbo-document.pdf \
   --size letter
 ```
+
+In Codex, replace `${CLAUDE_PLUGIN_ROOT}` in the review and export commands with the resolved plugin root.
 
 Export runs a mandatory brand audit before writing the file. It rejects all-caps phrases, decorative slash labels, non-zero tracking, crowded line height, underspaced label/heading pairs, misaligned split-header columns, clipped or out-of-canvas text, overlapping text blocks, and missing images. Fix every reported issue and export again; do not bypass the audit.
 
