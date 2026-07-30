@@ -229,6 +229,18 @@ async function main() {
       const ext = extname(outputPath);
       const base = basename(outputPath, ext);
       const dir = dirname(outputPath);
+      const documentHeight = await page.evaluate(() => Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+      ));
+
+      // Playwright requires every screenshot clip to sit inside the viewport.
+      // Expand it once so pages below the first fixed canvas are addressable.
+      if (renderer === "Puppeteer") {
+        await page.setViewport({ width, height: documentHeight, deviceScaleFactor: 2 });
+      } else {
+        await page.setViewportSize({ width, height: documentHeight });
+      }
 
       for (let i = 0; i < pageCount; i++) {
         const pageEl = await page.evaluate((index) => {
