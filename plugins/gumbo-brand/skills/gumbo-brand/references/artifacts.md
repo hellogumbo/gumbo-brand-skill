@@ -1,22 +1,22 @@
----
-name: artifacts
-description: Create and export Gumbo-branded documents, proposals, SOWs, PDFs, email templates, infographics, HTML artifacts, websites, social posts, and React prototypes. Use for non-presentation Gumbo deliverables and for the shared HTML-to-PDF/PNG export and mandatory visual-review workflow. Apply the foundations and layouts companions alongside this skill.
----
-
 # Gumbo Artifacts
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/artifacts/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
+Use the plugin root already resolved and verified by `../SKILL.md`. Apply `foundations.md` and `layouts.md` before building. Also read `visual-assets.md` when using photography, generated imagery, or logos.
 
-Apply the companions whose frontmatter names are `foundations` and `layouts` before building the deliverable. Also load `visual-assets` when using photography, generated imagery, or logos.
+## Contents
+
+- [Bundled structure](#start-from-the-bundled-structure)
+- [Output types](#output-types)
+- [HTML export pipeline](#html-export-pipeline)
+- [Visual review](#visual-review-mandatory)
 
 ## Start from the bundled structure
 
 Do not begin Gumbo HTML work from a blank file. Generate the appropriate self-contained source:
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" --type document --out ./gumbo-document.html
-node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" --type web --out ./gumbo-web-page.html
-node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" --type social --out ./gumbo-social-card.html
+node "<plugin-root>/scripts/create-html.mjs" --type document --out ./gumbo-document.html
+node "<plugin-root>/scripts/create-html.mjs" --type web --out ./gumbo-web-page.html
+node "<plugin-root>/scripts/create-html.mjs" --type social --out ./gumbo-social-card.html
 ```
 
 Edit the generated structure. It already contains the canonical CSS theme, official wordmark SVG, and bundled photography.
@@ -25,11 +25,11 @@ Edit the generated structure. It already contains the canonical CSS theme, offic
 
 ### Documents (DOCX / PDF)
 
-Read the `docx` or `pdf` SKILL.md alongside this one. Use **Tier 2** type scale.
+When document or PDF tooling is available, use it for final format handling and use this reference for Gumbo-specific decisions. Use **Tier 2** type scale.
 - Letter (816×1056) or A4 (595×842)
 - Assemble from blocks: hero band at top, split header, icon strip, case study pairs, value props strip, footer
 - Clean mode palette — don't over-color documents
-- Gumbo logo from `${CLAUDE_PLUGIN_ROOT}/assets/logo/` on first page or header
+- Gumbo logo from `<plugin-root>/assets/logo/` on first page or header
 - Pika icons inline where appropriate
 
 **Fixed-height HTML documents:** Use `display: flex; flex-direction: column` on the `.page` container with `flex: 1` on the content area and `flex-shrink: 0` on the footer. Never use `position: absolute` on the footer. See the HTML Artifacts section for full details.
@@ -110,12 +110,12 @@ Follow HTML artifact principles with **Tier 1** type scale.
 
 ## HTML Export Pipeline
 
-The Gumbo workflow is: **build as HTML first, then export to PDF or PNG**. HTML is the source of truth for all deliverables. The export script at `${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs` handles conversion.
+The Gumbo workflow is: **build as HTML first, then export to PDF or PNG**. HTML is the source of truth for all deliverables. The export script at `<plugin-root>/scripts/html-export.mjs` handles conversion.
 
 For collaborative review, run:
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-edit-server.mjs" \
+node "<plugin-root>/scripts/html-edit-server.mjs" \
   ./gumbo-document.html \
   --out ./gumbo-document.html \
   --pdf ./gumbo-document.pdf \
@@ -135,7 +135,7 @@ npm install puppeteer   # or: npx puppeteer browsers install chrome
 ### Usage
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" <input.html> <output> [options]
+node "<plugin-root>/scripts/html-export.mjs" <input.html> <output> [options]
 ```
 
 Options:
@@ -173,8 +173,8 @@ If it's a file you share, present, or print, it's a **PDF**. If it's an image yo
 ### Custom Dimensions
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" custom.html out.pdf --width 800 --height 1200 --format pdf
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" custom.html out.png --width 800 --height 600
+node "<plugin-root>/scripts/html-export.mjs" custom.html out.pdf --width 800 --height 1200 --format pdf
+node "<plugin-root>/scripts/html-export.mjs" custom.html out.png --width 800 --height 600
 ```
 
 Custom dimensions default to PNG unless `--format pdf` is specified. Custom dimensions override any named preset.
@@ -209,12 +209,12 @@ Puppeteer uses print media for PDF and screen media for PNG. Keep `body` backgro
 ### Examples
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" one-pager.html proposal.pdf
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" one-pager.html proposal.pdf --size a4
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" deck.html deck.pdf --size slide
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" post.html card.png --size linkedin
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" story.html story.png --size ig-story
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" custom.html out.png --width 1440 --height 900
+node "<plugin-root>/scripts/html-export.mjs" one-pager.html proposal.pdf
+node "<plugin-root>/scripts/html-export.mjs" one-pager.html proposal.pdf --size a4
+node "<plugin-root>/scripts/html-export.mjs" deck.html deck.pdf --size slide
+node "<plugin-root>/scripts/html-export.mjs" post.html card.png --size linkedin
+node "<plugin-root>/scripts/html-export.mjs" story.html story.png --size ig-story
+node "<plugin-root>/scripts/html-export.mjs" custom.html out.png --width 1440 --height 900
 ```
 
 ## Visual Review (Mandatory)
@@ -226,10 +226,10 @@ After building or modifying any HTML artifact, visually inspect the output befor
 1. **Build or update** the HTML artifact.
 2. **Export a review PNG:**
    ```bash
-   node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" <input.html> /tmp/review.png --format png --width <target-width> --height <target-height>
+   node "<plugin-root>/scripts/html-export.mjs" <input.html> /tmp/review.png --format png --width <target-width> --height <target-height>
    ```
    For multi-page/multi-slide files, this produces numbered PNGs (`review-01.png`, `review-02.png`, etc.).
-3. **Read the PNG** with the Read tool to visually inspect each page/slide.
+3. **Inspect the PNG** with the available image-viewing capability, one page or slide at a time.
 4. **Check for:**
    - **Clipping/overflow**: text or elements cut off at page edges
    - **Background bleed**: body background color leaking into the export (see "Body Styles and Export Context" above)
@@ -242,7 +242,7 @@ After building or modifying any HTML artifact, visually inspect the output befor
 6. **Repeat steps 2-5** until the review is clean.
 7. **Export the final deliverable:**
    ```bash
-   node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" <input.html> <output.pdf> --size <preset>
+   node "<plugin-root>/scripts/html-export.mjs" <input.html> <output.pdf> --size <preset>
    ```
 
 ### Review Presets

@@ -14,12 +14,15 @@ plugins/
     .claude-plugin/
       plugin.json       # Claude Code
     skills/
-      gumbo-brand/      # router and installation guard
-      foundations/
-      visual-assets/
-      layouts/
-      presentations/
-      artifacts/
+      gumbo-brand/
+        SKILL.md        # single user-facing skill and router
+        references/     # internal brand and production guidance
+          foundations.md
+          visual-assets.md
+          layouts.md
+          presentations.md
+          artifacts.md
+          resources.md
     assets/
       theme/
       icons/
@@ -38,16 +41,11 @@ plugins/
 
 Keeping both manifests in one plugin root avoids duplicating the 5,472 Pika icons, six logo files, and 29 approved photographs. Each platform ignores the other platform's manifest directory.
 
-## Skills
+## Skill
 
-| Skill | Use |
-|---|---|
-| `gumbo-brand` | Entry point, resource verification, deliverable routing, and executable workflow |
-| `foundations` | Core principles, colors, typography, icons, CSS tokens, components, and voice |
-| `visual-assets` | Photography, generated imagery, halftone treatments, and logo usage |
-| `layouts` | Spacing, layout blocks, tables, charts, and stat patterns |
-| `presentations` | Deck structure, slide types, sequencing, and slide templates |
-| `artifacts` | Documents, proposals, HTML, web, social, React, export, and visual review |
+The plugin exposes exactly one user-facing skill: `gumbo-brand`. It verifies the complete package, selects the right executable starter, and loads only the internal guidance needed for the requested deliverable.
+
+The detailed foundations, layouts, visual assets, presentations, artifacts, and resource inventory live under `skills/gumbo-brand/references/`. They are supporting modules, not extra skills, so installation shows one clean “Gumbo Brand” entry instead of six.
 
 ## ChatGPT and Codex
 
@@ -60,9 +58,9 @@ codex plugin add gumbo-brand@gumbo-team
 
 Start a new task after installation so Codex loads the complete package.
 
-The manifest includes ChatGPT/Codex display metadata, starter prompts, brand color, icons, and the bundled `skills/` path.
+The manifest includes ChatGPT/Codex display metadata, starter prompts, brand color, icons, and the bundled `skills/` directory. That directory contains only one discoverable `SKILL.md`.
 
-Do not publish `foundations`, `layouts`, `visual-assets`, `presentations`, or `artifacts` as independent MCP skills. That strips their shared `assets/`, `templates/`, and `scripts/` dependencies.
+Do not publish the files in `skills/gumbo-brand/references/` as independent skills. That would clutter discovery and strip their shared `assets/`, `templates/`, and `scripts/` dependencies.
 
 ## Claude Code
 
@@ -90,7 +88,7 @@ node plugins/gumbo-brand/scripts/verify-install.mjs
 node plugins/gumbo-brand/scripts/smoke-test.mjs
 ```
 
-The install provides Playwright for PDF/PNG rendering. Verification fails when the plugin is incomplete. The smoke test generates document, deck, web, and social HTML from the bundled starters and checks that the official theme, wordmark, and photography were embedded.
+The package declares Playwright for PDF/PNG rendering, and the exporter can also drive an installed Google Chrome directly with no local `node_modules`. Verification fails when the plugin is incomplete. The smoke test generates document, deck, web, and social HTML from the bundled starters and checks that the official theme, wordmark, and photography were embedded.
 
 ## Create a deliverable
 
@@ -122,4 +120,4 @@ node plugins/gumbo-brand/scripts/html-export.mjs \
 
 ## Shared resource resolution
 
-Skills use `${CLAUDE_PLUGIN_ROOT}` for Claude compatibility. In Codex, each skill derives the plugin root from its installed location and runs `verify-install.mjs` before referencing shared resources. A prose-only fallback is intentionally not supported.
+The skill uses `${CLAUDE_PLUGIN_ROOT}` for Claude compatibility. In Codex, it derives the plugin root from its installed location and runs `verify-install.mjs` before referencing shared resources. A prose-only fallback is intentionally not supported.

@@ -271,6 +271,13 @@ a {
   padding: 44px 48px 24px;
 }
 
+.document-hero {
+  height: 160px;
+  flex-shrink: 0;
+  margin: 0 48px;
+  border-radius: var(--radius-md);
+}
+
 .document-main {
   display: flex;
   flex: 1;

@@ -1,18 +1,22 @@
----
-name: presentations
-description: Create and style Gumbo-branded presentations, pitch decks, slide sequences, case-study slides, and PPTX deliverables using the bundled slide templates. Use for any Gumbo deck or slide task. Apply the foundations, layouts, and visual-assets companions alongside this skill.
----
-
 # Gumbo Presentations
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/presentations/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
+Use the plugin root already resolved and verified by `../SKILL.md`. Apply `foundations.md`, `layouts.md`, and `visual-assets.md` before authoring slides.
 
-Apply the companions whose frontmatter names are `foundations`, `layouts`, and `visual-assets` before authoring slides.
+## Contents
+
+- [Presentation workflow](#presentations-pptx)
+- [Slide skeleton](#the-slide-skeleton)
+- [Context labels](#context-labels)
+- [Slide types](#slide-types-from-the-reference-deck)
+- [Recommended sequence](#recommended-deck-sequence)
+- [Transitions and pacing](#slide-transitions-and-pacing)
+- [Template library](#slide-template-library)
+- [Adding templates](#adding-new-slide-templates)
 
 Create the initial deck structure before writing slides:
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/create-html.mjs" \
+node "<plugin-root>/scripts/create-html.mjs" \
   --type deck \
   --out ./gumbo-deck.html
 ```
@@ -21,7 +25,7 @@ Edit that generated source or replace its pages with matching structures from `t
 
 ## Presentations (PPTX)
 
-Read the `pptx` SKILL.md alongside this one. Use **Tier 1** type scale. 1920×1080 (16:9). Pika icons for all iconography. Gumbo wordmark on every slide — `wordmark-white.svg` on dark, `wordmark-black.svg` on light, bottom-left, ~104px wide.
+When presentation tooling is available, use it for final PPTX assembly and use this reference for Gumbo-specific decisions. Use **Tier 1** type scale. 1920×1080 (16:9). Pika icons for all iconography. Gumbo wordmark on every slide — `wordmark-white.svg` on dark, `wordmark-black.svg` on light, bottom-left, ~104px wide.
 
 ### The Slide Skeleton
 
@@ -108,16 +112,16 @@ Not every deck needs all 12. The minimum viable deck is: Opener → Intro → Di
 
 ### Slide Template Library
 
-Slide templates live in `${CLAUDE_PLUGIN_ROOT}/templates/slides/`. Each template is a `.md` file containing a ready-to-use HTML skeleton extracted from the Figma reference deck, with usage notes.
+Slide templates live in `<plugin-root>/templates/slides/`. Each template is a `.md` file containing a ready-to-use HTML skeleton extracted from the Figma reference deck, with usage notes.
 
 **How to use templates:**
 
-1. Read `${CLAUDE_PLUGIN_ROOT}/templates/INDEX.md` first. It has a table of all templates with ID, name, mode (clean/immersive), and content-type tags.
+1. Read `<plugin-root>/templates/INDEX.md` first. It has a table of all templates with ID, name, mode (clean/immersive), and content-type tags.
 2. Match the user's content purpose to the `Content Types` column. If the user names a specific slide type, use that template directly.
 3. Read the matching template file. Copy the HTML skeleton from the `## HTML Skeleton` section.
 4. Replace placeholder text (heading, body, section label) with the user's actual content.
-5. Fill image placeholders (marked with `<!-- IMAGE: ... -->`) with brand photography from `${CLAUDE_PLUGIN_ROOT}/assets/photography/` or user-supplied images.
-6. Inline the correct wordmark SVG from `${CLAUDE_PLUGIN_ROOT}/assets/logo/`: white on dark/immersive backgrounds, black on light/clean backgrounds.
+5. Fill image placeholders (marked with `<!-- IMAGE: ... -->`) with brand photography from `<plugin-root>/assets/photography/` or user-supplied images.
+6. Inline the correct wordmark SVG from `<plugin-root>/assets/logo/`: white on dark/immersive backgrounds, black on light/clean backgrounds.
 7. If no template matches, fall back to `02` (Split-Header + Content Stage).
 
 **Template file structure:**
@@ -132,7 +136,7 @@ Each template `.md` file has:
 Assemble slides by stacking multiple `.page` divs inside a single HTML file. Include the CSS Custom Properties block (from this document) once in a `<style>` tag. Each `.page` div is one slide. Export with:
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/html-export.mjs" deck.html deck.pdf --size slide
+node "<plugin-root>/scripts/html-export.mjs" deck.html deck.pdf --size slide
 ```
 
 **Minimum viable deck**: Opener (01), Intro (02 or 03), Services (05), Case Study (06), CTA (07).
@@ -144,6 +148,6 @@ When extracting a new slide layout from Figma:
 1. Call `get_design_context` with the frame's `fileKey` and `nodeId` from the Figma MCP.
 2. Translate the returned layout code to inline-styled HTML using CSS custom properties for colors, fonts, radii, and spacing tokens.
 3. Replace raw hex values with the matching `var(--gumbo-*)` token. Prefer Figma's measured spacing over SKILL.md approximations.
-4. Create a new `.md` file in `${CLAUDE_PLUGIN_ROOT}/templates/slides/` following the frontmatter + skeleton + usage notes format.
-5. Add a row to `${CLAUDE_PLUGIN_ROOT}/templates/INDEX.md`.
+4. Create a new `.md` file in `<plugin-root>/templates/slides/` following the frontmatter + skeleton + usage notes format.
+5. Add a row to `<plugin-root>/templates/INDEX.md`.
 6. Assign content-type tags that describe the slide's purpose, not its visual structure.

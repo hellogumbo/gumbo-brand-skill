@@ -1,13 +1,11 @@
----
-name: visual-assets
-description: Select and apply Gumbo brand photography, generate matching halftone imagery, use CSS-only image fallbacks, and embed official Gumbo wordmarks or icons. Use whenever a Gumbo deliverable needs photography, an immersive image, generated brand imagery, a logo, wordmark, pot icon, or lettermark. Apply the foundations companion alongside this skill.
----
-
 # Gumbo Visual Assets
 
-Resolve `${CLAUDE_PLUGIN_ROOT}` to the installed plugin root. Claude expands it directly. In Codex, resolve this file and go from `skills/visual-assets/` up to the plugin root. Run `node "<plugin-root>/scripts/verify-install.mjs"` before using resources; stop if verification fails.
+Use the plugin root already resolved and verified by `../SKILL.md`. Apply `foundations.md` alongside this reference for colors, typography, and brand principles. Use bundled files through the plugin root; never recreate or approximate official assets.
 
-Apply the companion whose frontmatter name is `foundations` alongside this skill for colors, typography, and brand principles. Use bundled files through `${CLAUDE_PLUGIN_ROOT}`; never recreate or approximate official assets.
+## Contents
+
+- [Photography and imagery](#photography--imagery)
+- [Logo usage](#logo-usage)
 
 ## Photography & Imagery
 
@@ -15,14 +13,14 @@ Apply the companion whose frontmatter name is `foundations` alongside this skill
 
 Gumbo's signature photo treatment: retro computer halftone print texture with CRT scanlines, rasterized scan lines, subtle holographic grid. It bridges analog craft with digital futures.
 
-Brand photography lives in `${CLAUDE_PLUGIN_ROOT}/assets/photography/`:
+Brand photography lives in `<plugin-root>/assets/photography/`:
 - `hero-landscape-halftone.jpg` — pastoral landscape, teal sky, wide open plains. CTAs, closing slides.
 - `sunburst-farmland-halftone.jpg` — farmland with halftone dots + sunburst rays. Section openers.
 - `team-working-dark-halftone.jpg` — people at computers, dark moody blue. Dramatic intros.
 - `team-computers-blue-halftone.jpg` — team collaboration, bright blue halftone. Hero slides.
 - `digital-terrain-data-landscape.jpg` — aerial digital farmland, glowing cyan data points. Vision slides.
 
-These images are pre-treated and ready to use. **Always use these bundled images first.** They cover the most common needs (hero bands, section openers, immersive backgrounds, closing slides). Read the file directly from `${CLAUDE_PLUGIN_ROOT}/assets/photography/` and embed it. Only generate new images if none of the five work for the specific context.
+These images are pre-treated and ready to use. **Always use these bundled images first.** They cover the most common needs (hero bands, section openers, immersive backgrounds, closing slides). Read the file directly from `<plugin-root>/assets/photography/` and embed it. Only generate new images if none of the five work for the specific context.
 
 ### Generating Brand Images
 
@@ -46,7 +44,7 @@ When using an image generation tool, adapt the prompt to the aspect ratio and co
 
 ### Image Priority Order
 
-1. **Bundled brand images** — use the five images in `${CLAUDE_PLUGIN_ROOT}/assets/photography/`. These are the default. Pick the one that best fits the context.
+1. **Bundled brand images** — use the images in `<plugin-root>/assets/photography/`. These are the default. Pick the one that best fits the context.
 2. **User-supplied images** — if the user provides additional brand-treated images, use those.
 3. **Generate with NanoBanana** — only if none of the bundled images fit and the context demands something specific. Use the prompt structure above.
 4. **Solid color fallback** — `#2563eb` full-bleed, or gradient from `#1e40af` to `#2563eb`.
@@ -88,7 +86,7 @@ When halftone images are unavailable (no bundled image fits, no generation tool 
 
 ## Logo Usage
 
-Logo files in `${CLAUDE_PLUGIN_ROOT}/assets/logo/`:
+Logo files in `<plugin-root>/assets/logo/`:
 - `wordmark-white.svg` — for dark/immersive backgrounds
 - `wordmark-black.svg` — for light backgrounds
 - `wordmark-with-background.svg` — standalone
@@ -97,4 +95,4 @@ Logo files in `${CLAUDE_PLUGIN_ROOT}/assets/logo/`:
 
 The wordmark is the default. Icon/pot for favicons, small marks, or playful contexts. Never distort, recolor, or add effects.
 
-**Always inline the actual SVG from `${CLAUDE_PLUGIN_ROOT}/assets/logo/`.** Never approximate the wordmark with styled text. The Gumbo wordmark is a custom pixel-style design that cannot be reproduced with any font. Read the SVG file and embed the markup directly.
+**Always inline the actual SVG from `<plugin-root>/assets/logo/`.** Never approximate the wordmark with styled text. The Gumbo wordmark is a custom pixel-style design that cannot be reproduced with any font. Read the SVG file and embed the markup directly.

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
@@ -21,16 +21,28 @@ function countFiles(directory) {
   return count;
 }
 
+function findFilesNamed(directory, fileName) {
+  if (!existsSync(directory)) return [];
+  const matches = [];
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const entryPath = join(directory, entry.name);
+    if (entry.isDirectory()) matches.push(...findFilesNamed(entryPath, fileName));
+    else if (entry.isFile() && entry.name === fileName) matches.push(entryPath);
+  }
+  return matches;
+}
+
 const requiredFiles = [
   ".codex-plugin/plugin.json",
   ".claude-plugin/plugin.json",
   "package.json",
   "skills/gumbo-brand/SKILL.md",
-  "skills/foundations/SKILL.md",
-  "skills/layouts/SKILL.md",
-  "skills/visual-assets/SKILL.md",
-  "skills/presentations/SKILL.md",
-  "skills/artifacts/SKILL.md",
+  "skills/gumbo-brand/references/foundations.md",
+  "skills/gumbo-brand/references/layouts.md",
+  "skills/gumbo-brand/references/visual-assets.md",
+  "skills/gumbo-brand/references/presentations.md",
+  "skills/gumbo-brand/references/artifacts.md",
+  "skills/gumbo-brand/references/resources.md",
   "assets/theme/gumbo.css",
   "assets/logo/wordmark-black.svg",
   "assets/logo/wordmark-white.svg",
@@ -44,6 +56,7 @@ const requiredFiles = [
   "scripts/html-edit-server.mjs",
   "scripts/html-export.mjs",
   "scripts/lib/brand-audit.mjs",
+  "scripts/lib/system-chromium.mjs",
 ];
 
 const errors = [];
@@ -52,6 +65,15 @@ for (const relativePath of requiredFiles) {
   if (!existsSync(absolutePath) || !statSync(absolutePath).isFile()) {
     errors.push(`missing file: ${relativePath}`);
   }
+}
+
+const discoveredSkills = findFilesNamed(join(pluginRoot, "skills"), "SKILL.md")
+  .map((filePath) => relative(pluginRoot, filePath))
+  .sort();
+if (discoveredSkills.length !== 1 || discoveredSkills[0] !== "skills/gumbo-brand/SKILL.md") {
+  errors.push(
+    `expected exactly one discoverable skill at skills/gumbo-brand/SKILL.md, found: ${discoveredSkills.join(", ") || "none"}`,
+  );
 }
 
 const counts = {
@@ -81,7 +103,9 @@ if (existsSync(codexManifestPath)) {
   try {
     const manifest = JSON.parse(readFileSync(codexManifestPath, "utf8"));
     if (manifest.name !== "gumbo-brand") errors.push("Codex manifest name must be gumbo-brand");
-    if (manifest.skills !== "./skills/") errors.push("Codex manifest skills path must be ./skills/");
+    if (manifest.skills !== "./skills/") {
+      errors.push("Codex manifest skills path must be ./skills/");
+    }
   } catch (error) {
     errors.push(`invalid Codex manifest JSON: ${error.message}`);
   }
@@ -99,3 +123,4 @@ console.log("Gumbo plugin verified.");
 console.log(`Plugin root: ${pluginRoot}`);
 console.log(`Assets: ${counts.icons} icons, ${counts.logos} logos, ${counts.photography} photographs`);
 console.log(`Structures: ${counts.htmlStarters} HTML starters, ${counts.slideTemplates} slide templates`);
+console.log("Discovery: 1 user-facing skill, 6 internal reference modules");
