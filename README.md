@@ -85,11 +85,12 @@ Start a new Claude Code session after the first installation.
 Run from the repository:
 
 ```bash
+npm install --prefix plugins/gumbo-brand
 node plugins/gumbo-brand/scripts/verify-install.mjs
 node plugins/gumbo-brand/scripts/smoke-test.mjs
 ```
 
-Verification fails when the plugin is incomplete. The smoke test generates document, deck, web, and social HTML from the bundled starters and checks that the official theme, wordmark, and photography were embedded.
+The install provides Playwright for PDF/PNG rendering. Verification fails when the plugin is incomplete. The smoke test generates document, deck, web, and social HTML from the bundled starters and checks that the official theme, wordmark, and photography were embedded.
 
 ## Create a deliverable
 

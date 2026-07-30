@@ -24,6 +24,7 @@ function countFiles(directory) {
 const requiredFiles = [
   ".codex-plugin/plugin.json",
   ".claude-plugin/plugin.json",
+  "package.json",
   "skills/gumbo-brand/SKILL.md",
   "skills/foundations/SKILL.md",
   "skills/layouts/SKILL.md",
