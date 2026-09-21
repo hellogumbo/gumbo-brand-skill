@@ -21,6 +21,9 @@ plugins/
           visual-assets.md
           layouts.md
           presentations.md
+          deck-styles.md
+          editorial-spread.md
+          menu-style.md
           artifacts.md
           resources.md
     assets/
@@ -46,6 +49,16 @@ Keeping both manifests in one plugin root avoids duplicating the 5,472 Pika icon
 The plugin exposes exactly one user-facing skill: `gumbo-brand`. It verifies the complete package, selects the right executable starter, and loads only the internal guidance needed for the requested deliverable.
 
 The detailed foundations, layouts, visual assets, presentations, artifacts, and resource inventory live under `skills/gumbo-brand/references/`. They are supporting modules, not extra skills, so installation shows one clean “Gumbo Brand” entry instead of six.
+
+## Three house styles
+
+The skill carries three looks and a router for choosing between them (`references/deck-styles.md`):
+
+- **Studio Deck**, the default. Pitches, client decks, product walkthroughs. Split headers, content stages, Pika icons, halftone photography.
+- **Editorial Spread**. Theses, manifestos, all-hands, working sessions, and any plated shareable that should feel like a printed journal. Warm paper, night dividers, the last word of every heading in italic serif. Icon-free by design.
+- **Menu Style**. A content discipline on either canvas for teaching a room and letting it choose: glossary rows, price lists, options, live worksheets, and a stance check so the deck asks instead of assigns.
+
+One line to choose: show a product → Studio. Make an argument → Editorial. Teach a room and let it choose → Menu.
 
 ## ChatGPT and Codex
 

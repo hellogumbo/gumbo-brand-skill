@@ -10,6 +10,9 @@ Use these resources directly. Do not approximate or replace them.
 - `templates/html/web-page.html` — responsive marketing/product page structure.
 - `templates/html/social-card.html` — 1200 × 627 social card structure.
 - `templates/slides/` — seven content-specific slide skeletons.
+- `skills/gumbo-brand/references/deck-styles.md` — the three house styles (Studio Deck, Editorial Spread, Menu Style) and the one-line rule for choosing.
+- `skills/gumbo-brand/references/editorial-spread.md` — the Editorial Spread `<head>` block and seven spread skeletons (1600 × 1100).
+- `skills/gumbo-brand/references/menu-style.md` — Menu Style patterns on both chassis.
 
 ## Official marks
 

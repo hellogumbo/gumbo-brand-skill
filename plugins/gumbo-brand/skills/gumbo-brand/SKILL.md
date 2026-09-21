@@ -30,6 +30,10 @@ The current working directory is only the output destination. Never search it fo
 
 Stop if verification fails or `${CLAUDE_PLUGIN_ROOT}` is unavailable. Report that the complete `plugins/gumbo-brand` directory must be installed as a plugin. Never silently continue with prose-only styling or a placeholder logo.
 
+## Pick the house style
+
+Gumbo work ships in three house styles. Read `references/deck-styles.md` and pick one before writing markup: **show a product → Studio Deck (default). Make an argument → Editorial Spread. Teach a room and let it choose → Menu Style.** Hold one style for the whole piece.
+
 ## Route the deliverable
 
 Read `references/foundations.md` for every branded deliverable. Then read only the matching internal reference modules:
@@ -37,6 +41,8 @@ Read `references/foundations.md` for every branded deliverable. Then read only t
 | Request | Internal references | Start from |
 |---|---|---|
 | Deck, slides, pitch presentation | `layouts.md`, `visual-assets.md`, `presentations.md` | `templates/html/deck.html` or `templates/slides/` |
+| Thesis, manifesto, all-hands, working session, printed-feel shareable | `deck-styles.md`, `editorial-spread.md`, `visual-assets.md` | The `<head>` block and spreads in `references/editorial-spread.md` |
+| Steering committee, alignment session, options and pricing, glossary | `deck-styles.md`, `menu-style.md`, then the chassis references above | The Studio deck starter or the Editorial Spread, with the Menu Style patterns |
 | Document, proposal, SOW, PDF | `layouts.md`, `visual-assets.md`, `artifacts.md` | `templates/html/document.html` |
 | Website or React prototype | `layouts.md`, `visual-assets.md`, `artifacts.md` | `templates/html/web-page.html` |
 | Social image or announcement | `layouts.md`, `visual-assets.md`, `artifacts.md` | `templates/html/social-card.html` |
@@ -111,6 +117,9 @@ Read the relevant module in `references/` before building:
 - `layouts.md` — spacing, visual composition, tables, charts, and layout blocks
 - `visual-assets.md` — official photography, image generation, halftone treatment, and logos
 - `presentations.md` — deck sequencing, slide structure, and slide templates
+- `deck-styles.md` — the three house styles and how to choose between them
+- `editorial-spread.md` — the Editorial Spread system: paper and night spreads, italic-serif headings, seven ready spreads
+- `menu-style.md` — the Menu Style content patterns: glossary rows, price lists, options, live worksheets, stance check
 - `artifacts.md` — documents, HTML, web, social, React, export, and visual review
 - `resources.md` — exact bundled resource inventory
 

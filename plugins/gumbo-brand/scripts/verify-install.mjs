@@ -41,6 +41,9 @@ const requiredFiles = [
   "skills/gumbo-brand/references/layouts.md",
   "skills/gumbo-brand/references/visual-assets.md",
   "skills/gumbo-brand/references/presentations.md",
+  "skills/gumbo-brand/references/deck-styles.md",
+  "skills/gumbo-brand/references/editorial-spread.md",
+  "skills/gumbo-brand/references/menu-style.md",
   "skills/gumbo-brand/references/artifacts.md",
   "skills/gumbo-brand/references/resources.md",
   "assets/theme/gumbo.css",
@@ -124,4 +127,4 @@ console.log("Gumbo plugin verified.");
 console.log(`Plugin root: ${pluginRoot}`);
 console.log(`Assets: ${counts.icons} icons, ${counts.logos} logos, ${counts.photography} photographs`);
 console.log(`Structures: ${counts.htmlStarters} HTML starters, ${counts.slideTemplates} slide templates`);
-console.log("Discovery: 1 user-facing skill, 6 internal reference modules");
+console.log("Discovery: 1 user-facing skill, 9 internal reference modules");
